@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details - FockGaming</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d-styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-style-1">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Fock<span class="pro">Gaming</span></span>
+                </div>
+                
+                <nav class="nav">
+                    <a href="index.html#games" data-translate="nav.games">Games</a>
+                    <a href="index.html#services" data-translate="nav.services">Services</a>
+                    <a href="support.html" data-translate="nav.support">Support</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <button class="lang-btn" onclick="toggleLanguageMenu()">
+                            <span class="flag">🇺🇸</span>
+                            <span data-translate="lang.english">English</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-menu" id="langMenu">
+                            <div class="lang-option" onclick="changeLanguage('en')">
+                                <span class="flag">🇺🇸</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ar')">
+                                <span class="flag">🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ru')">
+                                <span class="flag">🇷🇺</span>
+                                <span>Русский</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Game Details Section -->
+    <section class="game-details-section">
+        <div class="container">
+            <!-- Back Button -->
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                <span data-translate="common.back">Back to Games</span>
+            </button>
+
+            <!-- Game Header -->
+            <div class="game-header">
+                <div class="game-logo" id="gameLogo">
+                    <!-- Game icon will be loaded here -->
+                </div>
+                <div class="game-info">
+                    <h1 class="game-title" id="gameTitle">Game Title</h1>
+                    <p class="game-description" id="gameDescription">Game description</p>
+                    <div class="game-features">
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Instant Delivery</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>100% Secure</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tags"></i>
+                            <span>65% OFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Packages Grid -->
+            <div class="packages-section">
+                <h2>Available Packages</h2>
+                <div class="packages-grid" id="packagesGrid">
+                    <!-- Packages will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- UID Input Section -->
+            <div class="uid-section" id="uidSection" style="display: none;">
+                <div class="uid-container">
+                    <h3>Enter Your Game ID</h3>
+                    <div class="uid-input-group">
+                        <input type="text" id="uidInput" placeholder="Enter your Game ID/UID" class="uid-input">
+                        <button class="uid-confirm-btn" onclick="confirmUID()">
+                            <i class="fas fa-check"></i>
+                            Confirm
+                        </button>
+                    </div>
+                    <p class="uid-note">
+                        <i class="fas fa-info-circle"></i>
+                        Make sure your Game ID is correct. We cannot process refunds for incorrect IDs.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary" id="orderSummary" style="display: none;">
+                <div class="summary-container">
+                    <h3>Order Summary</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Game:</span>
+                        <span class="summary-value" id="summaryGame">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Package:</span>
+                        <span class="summary-value" id="summaryPackage">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Game ID:</span>
+                        <span class="summary-value" id="summaryUID">-</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span class="summary-label">Total:</span>
+                        <span class="summary-value" id="summaryTotal">$0.00</span>
+                    </div>
+                    <button class="buy-order-btn" onclick="proceedToPayment()">
+                        <i class="fas fa-credit-card"></i>
+                        Buy Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total: </span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Fock<span class="pro">Gaming</span></span>
+                    </div>
+                    <p>Your trusted partner for gaming credits and digital services since 2014.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 FockGaming. Since 2014 - All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="games-data.js"></script>
+    <script src="game-details.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

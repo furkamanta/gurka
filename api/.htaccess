@@ -1,0 +1,69 @@
+# 🔒 API SECURITY CONFIGURATION
+# Bu .htaccess dosyası API klasörünü güvenli hale getirir
+
+# Sadece belirli dosya tiplerinin çalışmasına izin ver
+<FilesMatch "\.(php)$">
+    # PHP dosyalarını çalıştırabilir
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Diğer dosya tiplerini engelle
+<FilesMatch "\.(txt|log|md|json|bak|backup|old)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Directory listing'i kapat
+Options -Indexes
+
+# Hassas dosyaları gizle
+<Files "*.log">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files "*.bak">
+    Order deny,allow  
+    Deny from all
+</Files>
+
+<Files "*.backup">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Rate limiting için header'lar
+<IfModule mod_headers.c>
+    # CORS ayarları
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, X-Requested-With"
+    
+    # Security headers
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options SAMEORIGIN
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Cache control for API responses
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType application/json "access plus 0 seconds"
+</IfModule>
+
+# Block common attack patterns
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block SQL injection attempts
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} \.\./\.\./\.\./ [OR]
+    RewriteCond %{QUERY_STRING} (;|<|>|'|"|\)|%0A|%0D|%22|%27|%3C|%3E|%00) [NC,OR]
+    RewriteCond %{QUERY_STRING} proc/self/environ [OR]
+    RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR]
+    RewriteCond %{QUERY_STRING} base64_(en|de)code(.*)
+    RewriteRule ^(.*)$ - [F,L]
+</IfModule>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FockGaming - Premium Gaming Credits & Services Since 2014</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d-styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Buy gaming credits, gift cards and app services with 65% discount. Trusted since 2014. Instant delivery for PUBG, Free Fire, Valorant, Roblox and more.">
+</head>
+<body class="bg-style-1">
+    <!-- 3D Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-container">
+            <div class="morphing-loader">
+                <div class="morph-shape"></div>
+                <div class="morph-shape"></div>
+                <div class="morph-shape"></div>
+            </div>
+            <h2 class="loading-text">FockGaming</h2>
+            <div class="loading-progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- First Visit Popup -->
+    <div id="welcomePopup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closeWelcomePopup()">&times;</button>
+            <div class="popup-icon">🎉</div>
+            <h2>Welcome to FockGaming!</h2>
+            <p>Get 65% OFF on your first purchase! Limited time offer for new customers!</p>
+            <button class="popup-btn" onclick="closeWelcomePopup()">Shop Now</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Fock<span class="pro">Gaming</span></span>
+                </div>
+                
+                <nav class="nav">
+                    <a href="#games" data-translate="nav.games">Games</a>
+                    <a href="#services" data-translate="nav.services">Services</a>
+                    <a href="support.html" data-translate="nav.support">Support</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <button class="lang-btn" onclick="toggleLanguageMenu()">
+                            <span class="flag">🇺🇸</span>
+                            <span data-translate="lang.english">English</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-menu" id="langMenu">
+                            <div class="lang-option" onclick="changeLanguage('en')">
+                                <span class="flag">🇺🇸</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ar')">
+                                <span class="flag">🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ru')">
+                                <span class="flag">🇷🇺</span>
+                                <span>Русский</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3D Rotating Banner Section -->
+    <section class="rotating-banner-section" id="rotatingBannerSection">
+        <div class="banner-container">
+            <!-- Banner Slides -->
+            <div class="banner-slides" id="bannerSlides">
+                <!-- Default slide when no custom slides -->
+                <div class="banner-slide active" data-slide="0">
+                    <div class="slide-background">
+                        <div class="slide-overlay"></div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <h1 class="slide-title" data-translate="hero.title">Premium Gaming Credits & Services</h1>
+                            <p class="slide-subtitle" data-translate="hero.subtitle">Trusted by millions of gamers worldwide since 2014. Get instant delivery with our secure payment system.</p>
+                            <div class="slide-features">
+                                <div class="feature">
+                                    <i class="fas fa-bolt"></i>
+                                    <span data-translate="hero.instant">Instant Delivery</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span data-translate="hero.secure">100% Secure</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-tags"></i>
+                                    <span data-translate="hero.discount">65% OFF First Purchase</span>
+                                </div>
+                            </div>
+                            <div class="slide-cta">
+                                <button class="cta-button" onclick="document.getElementById('games').scrollIntoView({behavior: 'smooth'})">
+                                    <span data-translate="common.shopnow">Shop Now</span>
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Controls -->
+            <div class="banner-controls">
+                <button class="banner-nav prev" onclick="previousSlide()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="banner-nav next" onclick="nextSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Banner Indicators -->
+            <div class="banner-indicators" id="bannerIndicators">
+                <button class="indicator active" onclick="goToSlide(0)"></button>
+            </div>
+
+            <!-- 3D Particles -->
+            <div class="particles-3d" id="particles3d"></div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2 data-translate="games.title">Popular Games & Services</h2>
+            
+            <!-- Category Buttons -->
+            <div class="category-buttons">
+                <button class="category-btn active" onclick="showCategory('popular')" data-category="popular">
+                    <i class="fas fa-fire"></i>
+                    <span>Popular Games</span>
+                </button>
+                <button class="category-btn" onclick="showCategory('allGames')" data-category="allGames">
+                    <i class="fas fa-gamepad"></i>
+                    <span>All Games</span>
+                </button>
+                <button class="category-btn" onclick="showCategory('giftCards')" data-category="giftCards">
+                    <i class="fas fa-gift"></i>
+                    <span>Gift Cards</span>
+                </button>
+                <button class="category-btn" onclick="showCategory('applications')" data-category="applications">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Applications</span>
+                </button>
+            </div>
+            
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-content">
+                <div class="trust-item">
+                    <div class="trust-number">2.5M+</div>
+                    <div class="trust-label" data-translate="trust.customers">Happy Customers</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">10+</div>
+                    <div class="trust-label" data-translate="trust.years">Years Experience</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">99.9%</div>
+                    <div class="trust-label" data-translate="trust.uptime">Uptime</div>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-number">24/7</div>
+                    <div class="trust-label" data-translate="trust.support">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <h2 data-translate="reviews.title">What Our Customers Say</h2>
+            <div class="reviews-grid">
+                <!-- Review 1 - USA -->
+                <div class="review-card-3d">
+                    <div class="review-card-inner">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="James Wilson" class="avatar-img">
+                                    <div class="country-flag">🇺🇸</div>
+                                </div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">James Wilson</h4>
+                                    <p class="reviewer-location">Miami, Florida</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p data-translate="reviews.review1">"Amazing service! Got my PUBG UC instantly after payment. Been using FockGaming for 2 years now and never had any issues. Highly recommend!"</p>
+                        </div>
+                        <div class="review-footer">
+                            <span class="review-date">1 day ago</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 2 - Canada -->
+                <div class="review-card-3d">
+                    <div class="review-card-inner">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Emma Thompson" class="avatar-img">
+                                    <div class="country-flag">🇨🇦</div>
+                                </div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Emma Thompson</h4>
+                                    <p class="reviewer-location">Toronto, Canada</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p data-translate="reviews.review2">"Best prices I've found anywhere! The 65% discount is real and the delivery is super fast. Customer support helped me within minutes."</p>
+                        </div>
+                        <div class="review-footer">
+                            <span class="review-date">3 days ago</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 3 - UK -->
+                <div class="review-card-3d">
+                    <div class="review-card-inner">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Oliver Davis" class="avatar-img">
+                                    <div class="country-flag">��</div>
+                                </div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Oliver Davis</h4>
+                                    <p class="reviewer-location">London, UK</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p data-translate="reviews.review3">"Trusted this site for Free Fire diamonds and Valorant points. Always delivers exactly what I order. The website is professional and secure."</p>
+                        </div>
+                        <div class="review-footer">
+                            <span class="review-date">5 days ago</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 4 - Australia -->
+                <div class="review-card-3d">
+                    <div class="review-card-inner">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face" alt="Sophie Miller" class="avatar-img">
+                                    <div class="country-flag">🇦🇺</div>
+                                </div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Sophie Miller</h4>
+                                    <p class="reviewer-location">Sydney, Australia</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p data-translate="reviews.review4">"Perfect for mobile gaming! Got my Mobile Legends diamonds instantly. The prices are unbeatable and the service is reliable. Will definitely use again!"</p>
+                        </div>
+                        <div class="review-footer">
+                            <span class="review-date">1 week ago</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 5 - Germany -->
+                <div class="review-card-3d">
+                    <div class="review-card-inner">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" alt="Max Schmidt" class="avatar-img">
+                                    <div class="country-flag">��</div>
+                                </div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Max Schmidt</h4>
+                                    <p class="reviewer-location">Berlin, Germany</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p data-translate="reviews.review5">"Excellent experience! Bought Genshin Impact crystals and received them within 2 minutes. The website is user-friendly and the support team is very helpful."</p>
+                        </div>
+                        <div class="review-footer">
+                            <span class="review-date">4 days ago</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Review 6 - France -->
+                <div class="review-card-3d">
+                    <div class="review-card-inner">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face" alt="Marie Dubois" class="avatar-img">
+                                    <div class="country-flag">🇫🇷</div>
+                                </div>
+                                <div class="reviewer-details">
+                                    <h4 class="reviewer-name">Marie Dubois</h4>
+                                    <p class="reviewer-location">Paris, France</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p data-translate="reviews.review6">"Fantastic service! I've been buying gaming credits here for months. The discounts are amazing and the delivery is always instant. Highly recommended!"</p>
+                        </div>
+                        <div class="review-footer">
+                            <span class="review-date">2 days ago</span>
+                            <div class="review-verified">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Verified Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 data-translate="cart.title">Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart" data-translate="cart.empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span data-translate="cart.total">Total: </span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()" data-translate="cart.checkout">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-gamepad"></i>
+                        <span>Fock<span class="pro">Gaming</span></span>
+                    </div>
+                    <p data-translate="footer.description">Your trusted partner for gaming credits and digital services since 2014.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-translate="footer.services">Services</h4>
+                    <ul>
+                        <li><a href="#" data-translate="footer.gaming">Gaming Credits</a></li>
+                        <li><a href="#" data-translate="footer.giftcards">Gift Cards</a></li>
+                        <li><a href="#" data-translate="footer.apps">App Services</a></li>
+                        <li><a href="#" data-translate="footer.support">24/7 Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-translate="footer.company">Company</h4>
+                    <ul>
+                        <li><a href="#" data-translate="footer.about">About Us</a></li>
+                        <li><a href="#" data-translate="footer.privacy">Privacy Policy</a></li>
+                        <li><a href="#" data-translate="footer.terms">Terms of Service</a></li>
+                        <li><a href="#" data-translate="footer.contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-translate="footer.payment">Payment Methods</h4>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-cc-discover"></i>
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 FockGaming. <span data-translate="footer.since">Since 2014</span> - <span data-translate="footer.rights">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="translations.js"></script>
+    <script src="games-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

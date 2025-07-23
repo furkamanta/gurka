@@ -1,0 +1,85 @@
+# 🔒 MAIN SITE SECURITY CONFIGURATION
+
+# Hassas dosyaları gizle
+<FilesMatch "\.(log|txt|md|json|bak|backup|old|env)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Backup dosyalarını gizle
+<Files "*~">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files "*.backup">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files "*.bak">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Directory listing'i kapat
+Options -Indexes
+
+# Security headers
+<IfModule mod_headers.c>
+    # Clickjacking protection
+    Header always set X-Frame-Options SAMEORIGIN
+    
+    # XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Content type sniffing protection
+    Header always set X-Content-Type-Options nosniff
+    
+    # Referrer policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Cache control for static files
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Block suspicious requests
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block access to hidden files
+    RewriteCond %{REQUEST_FILENAME} /\.
+    RewriteRule ^(.*)$ - [F,L]
+    
+    # Block access to specific file types
+    RewriteRule \.(txt|log|md|json|bak|backup|old)$ - [F,L]
+    
+    # Simple rate limiting (redirect repeat requests)
+    RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^(curl|wget|python|bot|scanner) [NC]
+    RewriteRule ^(.*)$ - [F,L]
+</IfModule>

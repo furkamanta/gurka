@@ -1,0 +1,1371 @@
+/* 3D Background Styles System */
+
+/* Style 1: Current/Default - Dark Gaming Theme */
+.bg-style-1 {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+.bg-style-1 .games-section {
+    background: transparent;
+}
+
+.bg-style-1 .game-card {
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Style 2: Neon Cyber Theme */
+.bg-style-2 {
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+}
+
+.bg-style-2::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 79px, rgba(255, 119, 198, 0.03) 81px, rgba(255, 119, 198, 0.03) 82px, transparent 84px),
+        linear-gradient(rgba(255, 119, 198, 0.03) 79px, transparent 81px, transparent 82px, rgba(255, 119, 198, 0.03) 84px);
+    background-size: 84px 84px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bg-style-2 .games-section {
+    background: rgba(15, 15, 35, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 119, 198, 0.2);
+    border-radius: 20px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 20px 60px rgba(255, 119, 198, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.bg-style-2 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(26, 26, 46, 0.9), 
+        rgba(22, 33, 62, 0.9)
+    );
+    border: 1px solid rgba(120, 219, 255, 0.4);
+    box-shadow: 
+        0 15px 35px rgba(120, 219, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bg-style-2 .game-card:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+    box-shadow: 
+        0 25px 50px rgba(120, 219, 255, 0.3),
+        0 0 30px rgba(255, 119, 198, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 119, 198, 0.6);
+}
+
+/* Style 3: Holographic Glass Theme */
+.bg-style-3 {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(138, 43, 226, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(30, 144, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(255, 20, 147, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+}
+
+.bg-style-3::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bg-style-3 .games-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 25px 80px rgba(138, 43, 226, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.bg-style-3 .games-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        rgba(138, 43, 226, 0.1) 0%, 
+        transparent 25%, 
+        rgba(30, 144, 255, 0.1) 50%, 
+        transparent 75%, 
+        rgba(255, 20, 147, 0.1) 100%
+    );
+    border-radius: 25px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.bg-style-3 .game-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.bg-style-3 .game-card:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-15px);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(138, 43, 226, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Style 4: Matrix Digital Theme */
+.bg-style-4 {
+    background: 
+        linear-gradient(0deg, rgba(0, 255, 65, 0.03) 50%, transparent 50%),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 50%, transparent 50%),
+        radial-gradient(circle at 25% 25%, rgba(0, 255, 65, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0, 255, 127, 0.2) 0%, transparent 50%),
+        linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #001100 100%);
+    background-size: 50px 50px, 50px 50px, 100% 100%, 100% 100%, 100% 100%;
+    position: relative;
+}
+
+.bg-style-4::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300ff41' fill-opacity='0.05'%3E%3Ctext x='20' y='25' text-anchor='middle' font-family='monospace' font-size='12'%3E1%3C/text%3E%3C/g%3E%3C/svg%3E");
+    animation: matrix-rain 20s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes matrix-rain {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+.bg-style-4 .games-section {
+    background: rgba(0, 17, 0, 0.9);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(0, 255, 65, 0.3);
+    border-radius: 15px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 0 30px rgba(0, 255, 65, 0.2),
+        inset 0 0 20px rgba(0, 255, 65, 0.05);
+    position: relative;
+}
+
+.bg-style-4 .games-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(0, 255, 65, 0.5) 0%, 
+        rgba(0, 255, 127, 0.5) 25%, 
+        rgba(0, 255, 65, 0.5) 50%, 
+        rgba(0, 255, 127, 0.5) 75%, 
+        rgba(0, 255, 65, 0.5) 100%
+    );
+    border-radius: 15px;
+    z-index: -1;
+    animation: matrix-border 3s ease-in-out infinite;
+}
+
+@keyframes matrix-border {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+.bg-style-4 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(0, 17, 0, 0.8), 
+        rgba(0, 34, 0, 0.8)
+    );
+    border: 1px solid rgba(0, 255, 65, 0.4);
+    box-shadow: 
+        0 10px 30px rgba(0, 255, 65, 0.1),
+        inset 0 1px 0 rgba(0, 255, 65, 0.2);
+    transform: perspective(800px) rotateX(10deg);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.bg-style-4 .game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 255, 65, 0.2), 
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.bg-style-4 .game-card:hover {
+    transform: perspective(800px) rotateX(0deg) translateY(-8px);
+    box-shadow: 
+        0 20px 40px rgba(0, 255, 65, 0.2),
+        0 0 20px rgba(0, 255, 65, 0.3),
+        inset 0 1px 0 rgba(0, 255, 65, 0.3);
+    border-color: rgba(0, 255, 65, 0.6);
+}
+
+.bg-style-4 .game-card:hover::before {
+    left: 100%;
+}
+
+/* Style 5: Quantum Wave Theme */
+.bg-style-5 {
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 140, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 70%),
+        linear-gradient(135deg, #1a0f0a 0%, #2d1b0e 50%, #3d2817 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-style-5::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 40%, rgba(255, 140, 0, 0.05) 50%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, rgba(255, 215, 0, 0.05) 50%, transparent 60%);
+    background-size: 100px 100px;
+    animation: quantum-wave 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes quantum-wave {
+    0%, 100% { transform: translateX(0) translateY(0); opacity: 0.3; }
+    25% { transform: translateX(20px) translateY(-10px); opacity: 0.6; }
+    50% { transform: translateX(-10px) translateY(20px); opacity: 0.4; }
+    75% { transform: translateX(15px) translateY(-15px); opacity: 0.7; }
+}
+
+.bg-style-5 .games-section {
+    background: rgba(45, 27, 14, 0.9);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 140, 0, 0.4);
+    border-radius: 20px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 25px 60px rgba(255, 140, 0, 0.2),
+        inset 0 1px 0 rgba(255, 215, 0, 0.3);
+    position: relative;
+}
+
+.bg-style-5 .games-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(255, 140, 0, 0.6) 0%, 
+        rgba(255, 215, 0, 0.6) 25%, 
+        rgba(139, 69, 19, 0.6) 50%, 
+        rgba(255, 140, 0, 0.6) 75%, 
+        rgba(255, 215, 0, 0.6) 100%
+    );
+    border-radius: 20px;
+    z-index: -1;
+    animation: quantum-border 4s linear infinite;
+}
+
+@keyframes quantum-border {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.bg-style-5 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(45, 27, 14, 0.8), 
+        rgba(61, 40, 23, 0.8)
+    );
+    border: 1px solid rgba(255, 140, 0, 0.5);
+    box-shadow: 
+        0 15px 40px rgba(255, 140, 0, 0.2),
+        inset 0 1px 0 rgba(255, 215, 0, 0.3);
+    transform: perspective(1000px) rotateX(8deg) rotateY(-3deg);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-style-5 .game-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 140, 0, 0.1),
+        transparent,
+        rgba(255, 215, 0, 0.1),
+        transparent
+    );
+    animation: quantum-rotate 6s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes quantum-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bg-style-5 .game-card:hover {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-20px);
+    box-shadow: 
+        0 30px 70px rgba(255, 140, 0, 0.4),
+        0 0 50px rgba(255, 215, 0, 0.3),
+        inset 0 1px 0 rgba(255, 215, 0, 0.5);
+    border-color: rgba(255, 215, 0, 0.8);
+}
+
+/* Style 6: Neural Network Theme */
+.bg-style-6 {
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(75, 0, 130, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 40% 80%, rgba(148, 0, 211, 0.3) 0%, transparent 40%),
+        linear-gradient(135deg, #0a0a0f 0%, #1a0a1f 50%, #2a0a2f 100%);
+    position: relative;
+}
+
+.bg-style-6::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(138, 43, 226, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 75% 75%, rgba(148, 0, 211, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px, 30px 30px;
+    animation: neural-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes neural-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.02); }
+}
+
+.bg-style-6 .games-section {
+    background: rgba(26, 10, 31, 0.9);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 25px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 30px 80px rgba(138, 43, 226, 0.3),
+        inset 0 1px 0 rgba(148, 0, 211, 0.4);
+    position: relative;
+}
+
+.bg-style-6 .games-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(138, 43, 226, 0.1) 50%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(148, 0, 211, 0.1) 50%, transparent 70%);
+    border-radius: 25px;
+    animation: neural-scan 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes neural-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.bg-style-6 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(26, 10, 31, 0.9), 
+        rgba(42, 10, 47, 0.9)
+    );
+    border: 1px solid rgba(138, 43, 226, 0.6);
+    box-shadow: 
+        0 20px 50px rgba(138, 43, 226, 0.2),
+        inset 0 1px 0 rgba(148, 0, 211, 0.3);
+    transform: perspective(1200px) rotateX(10deg) rotateZ(2deg);
+    transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.bg-style-6 .game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(138, 43, 226, 0.1),
+        transparent,
+        rgba(148, 0, 211, 0.1),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.bg-style-6 .game-card:hover {
+    transform: perspective(1200px) rotateX(0deg) rotateZ(0deg) translateY(-25px);
+    box-shadow: 
+        0 40px 80px rgba(138, 43, 226, 0.4),
+        0 0 60px rgba(148, 0, 211, 0.3),
+        inset 0 1px 0 rgba(148, 0, 211, 0.5);
+    border-color: rgba(148, 0, 211, 0.9);
+}
+
+.bg-style-6 .game-card:hover::before {
+    opacity: 1;
+}
+
+/* Style 7: Crystalline Prism Theme */
+.bg-style-7 {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(0, 191, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(30, 144, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 20% 70%, rgba(135, 206, 250, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0f1a 0%, #0f1a2a 50%, #1a2a3a 100%);
+    position: relative;
+}
+
+.bg-style-7::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(60deg, transparent 40%, rgba(0, 191, 255, 0.03) 50%, transparent 60%),
+        linear-gradient(120deg, transparent 40%, rgba(30, 144, 255, 0.03) 50%, transparent 60%),
+        linear-gradient(180deg, transparent 40%, rgba(135, 206, 250, 0.03) 50%, transparent 60%);
+    background-size: 80px 80px, 120px 120px, 100px 100px;
+    animation: crystalline-shift 10s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes crystalline-shift {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    33% { transform: rotate(120deg) scale(1.05); }
+    66% { transform: rotate(240deg) scale(0.95); }
+}
+
+.bg-style-7 .games-section {
+    background: rgba(15, 26, 42, 0.9);
+    backdrop-filter: blur(35px);
+    border: 2px solid rgba(0, 191, 255, 0.5);
+    border-radius: 30px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 35px 90px rgba(0, 191, 255, 0.3),
+        inset 0 1px 0 rgba(135, 206, 250, 0.4);
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.bg-style-7 .games-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(0, 191, 255, 0.7) 0%, 
+        rgba(30, 144, 255, 0.7) 25%, 
+        rgba(135, 206, 250, 0.7) 50%, 
+        rgba(0, 191, 255, 0.7) 75%, 
+        rgba(30, 144, 255, 0.7) 100%
+    );
+    border-radius: 30px;
+    z-index: -1;
+    animation: crystalline-border 6s linear infinite;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+@keyframes crystalline-border {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.bg-style-7 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(15, 26, 42, 0.9), 
+        rgba(26, 42, 58, 0.9)
+    );
+    border: 1px solid rgba(0, 191, 255, 0.6);
+    box-shadow: 
+        0 25px 60px rgba(0, 191, 255, 0.2),
+        inset 0 1px 0 rgba(135, 206, 250, 0.3);
+    transform: perspective(1500px) rotateX(12deg) rotateY(-5deg) rotateZ(1deg);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+.bg-style-7 .game-card::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(0, 191, 255, 0.1) 60deg,
+        transparent 120deg,
+        rgba(30, 144, 255, 0.1) 180deg,
+        transparent 240deg,
+        rgba(135, 206, 250, 0.1) 300deg,
+        transparent 360deg
+    );
+    animation: crystalline-prism 8s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes crystalline-prism {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bg-style-7 .game-card:hover {
+    transform: perspective(1500px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-30px);
+    box-shadow: 
+        0 50px 100px rgba(0, 191, 255, 0.4),
+        0 0 80px rgba(135, 206, 250, 0.4),
+        inset 0 1px 0 rgba(135, 206, 250, 0.6);
+    border-color: rgba(135, 206, 250, 0.9);
+}
+
+/* Style 8: Plasma Energy Theme */
+.bg-style-8 {
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(255, 20, 147, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.3) 0%, transparent 60%),
+        linear-gradient(135deg, #1a0a1a 0%, #2a0a2a 50%, #3a0a3a 100%);
+    position: relative;
+}
+
+.bg-style-8::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at center, rgba(255, 20, 147, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse at 30% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse at 70% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+    animation: plasma-flow 12s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes plasma-flow {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    25% { 
+        transform: scale(1.1) rotate(90deg);
+        filter: hue-rotate(90deg);
+    }
+    50% { 
+        transform: scale(0.9) rotate(180deg);
+        filter: hue-rotate(180deg);
+    }
+    75% { 
+        transform: scale(1.05) rotate(270deg);
+        filter: hue-rotate(270deg);
+    }
+}
+
+.bg-style-8 .games-section {
+    background: rgba(42, 10, 42, 0.9);
+    backdrop-filter: blur(40px);
+    border: 2px solid rgba(255, 20, 147, 0.5);
+    border-radius: 35px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 40px 100px rgba(255, 20, 147, 0.3),
+        inset 0 1px 0 rgba(255, 0, 255, 0.4);
+    position: relative;
+}
+
+.bg-style-8 .games-section::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, 
+        rgba(255, 20, 147, 0.8) 0%, 
+        rgba(255, 0, 255, 0.8) 20%, 
+        rgba(138, 43, 226, 0.8) 40%, 
+        rgba(255, 20, 147, 0.8) 60%, 
+        rgba(255, 0, 255, 0.8) 80%, 
+        rgba(138, 43, 226, 0.8) 100%
+    );
+    border-radius: 35px;
+    z-index: -1;
+    animation: plasma-border 5s linear infinite;
+    filter: blur(1px);
+}
+
+@keyframes plasma-border {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.bg-style-8 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(42, 10, 42, 0.9), 
+        rgba(58, 10, 58, 0.9)
+    );
+    border: 1px solid rgba(255, 20, 147, 0.6);
+    box-shadow: 
+        0 30px 70px rgba(255, 20, 147, 0.2),
+        inset 0 1px 0 rgba(255, 0, 255, 0.3);
+    transform: perspective(1800px) rotateX(15deg) rotateY(-8deg);
+    transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-style-8 .game-card::before {
+    content: '';
+    position: absolute;
+    top: -200%;
+    left: -200%;
+    width: 500%;
+    height: 500%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 20, 147, 0.2) 0%,
+        rgba(255, 0, 255, 0.1) 25%,
+        transparent 50%,
+        rgba(138, 43, 226, 0.1) 75%,
+        transparent 100%
+    );
+    animation: plasma-energy 10s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes plasma-energy {
+    0% { transform: rotate(0deg) scale(0.5); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(0.5); }
+}
+
+.bg-style-8 .game-card:hover {
+    transform: perspective(1800px) rotateX(0deg) rotateY(0deg) translateY(-35px);
+    box-shadow: 
+        0 60px 120px rgba(255, 20, 147, 0.4),
+        0 0 100px rgba(255, 0, 255, 0.4),
+        inset 0 1px 0 rgba(255, 0, 255, 0.6);
+    border-color: rgba(255, 0, 255, 0.9);
+}
+
+/* Style 9: Cosmic Nebula Theme */
+.bg-style-9 {
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(72, 61, 139, 0.5) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(123, 104, 238, 0.5) 0%, transparent 40%),
+        radial-gradient(circle at 40% 80%, rgba(147, 112, 219, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 60% 20%, rgba(186, 85, 211, 0.4) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a1a 0%, #1a1a2a 50%, #2a2a3a 100%);
+    position: relative;
+}
+
+.bg-style-9::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 200px 200px, 150px 150px, 300px 300px, 100px 100px;
+    animation: cosmic-drift 20s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes cosmic-drift {
+    0% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-10px) translateY(-5px); }
+    50% { transform: translateX(5px) translateY(-10px); }
+    75% { transform: translateX(-5px) translateY(5px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+.bg-style-9 .games-section {
+    background: rgba(26, 26, 42, 0.9);
+    backdrop-filter: blur(45px);
+    border: 2px solid rgba(123, 104, 238, 0.5);
+    border-radius: 40px;
+    margin: 20px;
+    padding: 40px;
+    box-shadow: 
+        0 45px 110px rgba(123, 104, 238, 0.3),
+        inset 0 1px 0 rgba(147, 112, 219, 0.4);
+    position: relative;
+}
+
+.bg-style-9 .games-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        conic-gradient(from 0deg, 
+            rgba(72, 61, 139, 0.1) 0deg,
+            rgba(123, 104, 238, 0.1) 72deg,
+            rgba(147, 112, 219, 0.1) 144deg,
+            rgba(186, 85, 211, 0.1) 216deg,
+            rgba(72, 61, 139, 0.1) 288deg,
+            rgba(123, 104, 238, 0.1) 360deg
+        );
+    border-radius: 40px;
+    animation: cosmic-rotation 15s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes cosmic-rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bg-style-9 .game-card {
+    background: linear-gradient(145deg, 
+        rgba(26, 26, 42, 0.9), 
+        rgba(42, 42, 58, 0.9)
+    );
+    border: 1px solid rgba(123, 104, 238, 0.6);
+    box-shadow: 
+        0 35px 80px rgba(123, 104, 238, 0.2),
+        inset 0 1px 0 rgba(147, 112, 219, 0.3);
+    transform: perspective(2000px) rotateX(18deg) rotateY(-10deg) rotateZ(-2deg);
+    transition: all 1s cubic-bezier(0.23, 1, 0.320, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-style-9 .game-card::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 400%;
+    height: 400%;
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(72, 61, 139, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 75% 75%, rgba(123, 104, 238, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(147, 112, 219, 0.1) 0%, transparent 40%);
+    animation: cosmic-nebula 14s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes cosmic-nebula {
+    0%, 100% { 
+        transform: rotate(0deg) scale(0.8);
+        opacity: 0.3;
+    }
+    33% { 
+        transform: rotate(120deg) scale(1.1);
+        opacity: 0.6;
+    }
+    66% { 
+        transform: rotate(240deg) scale(0.9);
+        opacity: 0.4;
+    }
+}
+
+.bg-style-9 .game-card:hover {
+    transform: perspective(2000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-40px);
+    box-shadow: 
+        0 70px 140px rgba(123, 104, 238, 0.4),
+        0 0 120px rgba(147, 112, 219, 0.4),
+        inset 0 1px 0 rgba(147, 112, 219, 0.6);
+    border-color: rgba(147, 112, 219, 0.9);
+}
+
+/* Common 3D enhancements for all styles */
+.game-card {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.game-card .game-logo {
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-logo {
+    transform: scale(1.05) translateZ(10px);
+}
+
+.game-card .package-item {
+    transition: all 0.3s ease;
+}
+
+.game-card:hover .package-item {
+    transform: translateZ(5px);
+}
+
+/* ========================================
+   3D STYLES MOBILE RESPONSIVE
+   ======================================== */
+
+/* Tablet Styles (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    /* 3D Loading Screen */
+    .loading-screen {
+        padding: 20px;
+    }
+    
+    .morphing-loader {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .loading-text {
+        font-size: 1.2rem;
+        margin-top: 2rem;
+    }
+    
+    .loading-progress {
+        width: 200px;
+        height: 4px;
+        margin-top: 1.5rem;
+    }
+    
+    /* 3D Background Styles */
+    .bg-style-2 .games-section,
+    .bg-style-3 .games-section,
+    .bg-style-4 .games-section {
+        margin: 15px;
+        padding: 25px;
+        border-radius: 20px;
+    }
+    
+    .bg-style-2 .game-card,
+    .bg-style-3 .game-card,
+    .bg-style-4 .game-card {
+        transform: perspective(800px) rotateY(0deg);
+    }
+    
+    .bg-style-2 .game-card:hover,
+    .bg-style-3 .game-card:hover,
+    .bg-style-4 .game-card:hover {
+        transform: perspective(800px) rotateY(5deg) translateY(-8px);
+    }
+}
+
+/* Mobile Styles (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    /* 3D Loading Screen Mobile */
+    .loading-screen {
+        padding: 15px;
+    }
+    
+    .loading-container {
+        text-align: center;
+    }
+    
+    .morphing-loader {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 2rem;
+    }
+    
+    .morph-shape {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .loading-text {
+        font-size: 1rem;
+        margin-top: 1.5rem;
+        color: #ffffff;
+        font-weight: 600;
+    }
+    
+    .loading-progress {
+        width: 150px;
+        height: 3px;
+        margin: 1rem auto 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .loading-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #22c55e, #16a34a);
+        border-radius: 10px;
+        animation: loadingProgress 3s ease-in-out infinite;
+    }
+    
+    @keyframes loadingProgress {
+        0% { width: 0%; }
+        50% { width: 70%; }
+        100% { width: 100%; }
+    }
+    
+    /* 3D Background Styles Mobile */
+    .bg-style-2,
+    .bg-style-3,
+    .bg-style-4 {
+        background-attachment: scroll; /* Fix parallax on mobile */
+    }
+    
+    .bg-style-2 .games-section,
+    .bg-style-3 .games-section,
+    .bg-style-4 .games-section {
+        margin: 10px;
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .bg-style-2 .game-card,
+    .bg-style-3 .game-card,
+    .bg-style-4 .game-card {
+        transform: none;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .bg-style-2 .game-card:hover,
+    .bg-style-3 .game-card:hover,
+    .bg-style-4 .game-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Cyberpunk Style Mobile */
+    .bg-style-2 .hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+    
+    .bg-style-2 .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .bg-style-2 .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .bg-style-2 .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        border-radius: 25px;
+    }
+    
+    /* Neon Gaming Style Mobile */
+    .bg-style-3 .hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+    
+    .bg-style-3 .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 20px #ff6b6b, 0 0 40px #ff6b6b;
+    }
+    
+    .bg-style-3 .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .bg-style-3 .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        border-radius: 25px;
+        box-shadow: 0 0 20px #ff6b6b;
+    }
+    
+    /* Matrix Style Mobile */
+    .bg-style-4 .hero {
+        padding: 8rem 0 4rem;
+        text-align: center;
+    }
+    
+    .bg-style-4 .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        color: #00ff41;
+        text-shadow: 0 0 10px #00ff41;
+    }
+    
+    .bg-style-4 .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        color: #00ff41;
+    }
+    
+    .bg-style-4 .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        border-radius: 25px;
+        background: linear-gradient(135deg, #00ff41, #00cc33);
+        color: #000000;
+        box-shadow: 0 0 20px #00ff41;
+    }
+    
+    /* Game Cards 3D Effects Mobile */
+    .bg-style-2 .game-header,
+    .bg-style-3 .game-header,
+    .bg-style-4 .game-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .bg-style-2 .game-logo,
+    .bg-style-3 .game-logo,
+    .bg-style-4 .game-logo {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+    
+    .bg-style-2 .game-info h3,
+    .bg-style-3 .game-info h3,
+    .bg-style-4 .game-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .bg-style-2 .game-info p,
+    .bg-style-3 .game-info p,
+    .bg-style-4 .game-info p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .bg-style-2 .game-stats,
+    .bg-style-3 .game-stats,
+    .bg-style-4 .game-stats {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin: 1.5rem 0;
+    }
+    
+    .bg-style-2 .stat-item,
+    .bg-style-3 .stat-item,
+    .bg-style-4 .stat-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        backdrop-filter: blur(5px);
+    }
+    
+    .bg-style-2 .game-actions,
+    .bg-style-3 .game-actions,
+    .bg-style-4 .game-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+    }
+    
+    .bg-style-2 .btn-primary,
+    .bg-style-2 .btn-secondary,
+    .bg-style-3 .btn-primary,
+    .bg-style-3 .btn-secondary,
+    .bg-style-4 .btn-primary,
+    .bg-style-4 .btn-secondary {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        text-align: center;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Floating Elements Mobile */
+    .floating-elements {
+        display: none; /* Hide on mobile for performance */
+    }
+    
+    /* Particle Effects Mobile */
+    .particles {
+        opacity: 0.3; /* Reduce opacity on mobile */
+    }
+    
+    /* Glitch Effects Mobile */
+    .glitch-text {
+        animation-duration: 4s; /* Slower animation on mobile */
+    }
+    
+    /* Neon Effects Mobile */
+    .neon-border {
+        box-shadow: 0 0 10px currentColor;
+        animation: none; /* Disable heavy animations on mobile */
+    }
+    
+    /* Matrix Rain Mobile */
+    .matrix-rain {
+        opacity: 0.2; /* Reduce opacity for better readability */
+        animation-duration: 15s; /* Slower animation */
+    }
+}
+
+/* Small Mobile Styles (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .loading-container {
+        padding: 1rem;
+    }
+    
+    .morphing-loader {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .morph-shape {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .loading-text {
+        font-size: 0.9rem;
+        margin-top: 1rem;
+    }
+    
+    .loading-progress {
+        width: 120px;
+        height: 2px;
+    }
+    
+    .bg-style-2 .games-section,
+    .bg-style-3 .games-section,
+    .bg-style-4 .games-section {
+        margin: 8px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .bg-style-2 .hero,
+    .bg-style-3 .hero,
+    .bg-style-4 .hero {
+        padding: 7rem 0 3rem;
+    }
+    
+    .bg-style-2 .hero h1,
+    .bg-style-3 .hero h1,
+    .bg-style-4 .hero h1 {
+        font-size: 1.7rem;
+    }
+    
+    .bg-style-2 .hero p,
+    .bg-style-3 .hero p,
+    .bg-style-4 .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .bg-style-2 .cta-button,
+    .bg-style-3 .cta-button,
+    .bg-style-4 .cta-button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .bg-style-2 .game-logo,
+    .bg-style-3 .game-logo,
+    .bg-style-4 .game-logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .bg-style-2 .game-info h3,
+    .bg-style-3 .game-info h3,
+    .bg-style-4 .game-info h3 {
+        font-size: 1rem;
+    }
+    
+    .bg-style-2 .game-info p,
+    .bg-style-3 .game-info p,
+    .bg-style-4 .game-info p {
+        font-size: 0.8rem;
+    }
+    
+    .bg-style-2 .stat-item,
+    .bg-style-3 .stat-item,
+    .bg-style-4 .stat-item {
+        padding: 0.6rem;
+    }
+    
+    .bg-style-2 .btn-primary,
+    .bg-style-2 .btn-secondary,
+    .bg-style-3 .btn-primary,
+    .bg-style-3 .btn-secondary,
+    .bg-style-4 .btn-primary,
+    .bg-style-4 .btn-secondary {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .bg-style-2 .game-card:hover,
+    .bg-style-3 .game-card:hover,
+    .bg-style-4 .game-card:hover {
+        transform: none;
+    }
+    
+    .bg-style-2 .game-card:active,
+    .bg-style-3 .game-card:active,
+    .bg-style-4 .game-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .bg-style-2 .btn-primary:hover,
+    .bg-style-2 .btn-secondary:hover,
+    .bg-style-3 .btn-primary:hover,
+    .bg-style-3 .btn-secondary:hover,
+    .bg-style-4 .btn-primary:hover,
+    .bg-style-4 .btn-secondary:hover {
+        transform: none;
+    }
+    
+    .bg-style-2 .btn-primary:active,
+    .bg-style-2 .btn-secondary:active,
+    .bg-style-3 .btn-primary:active,
+    .bg-style-3 .btn-secondary:active,
+    .bg-style-4 .btn-primary:active,
+    .bg-style-4 .btn-secondary:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+    
+    /* Disable heavy animations on touch devices */
+    .glitch-text,
+    .neon-pulse,
+    .matrix-rain {
+        animation: none;
+    }
+    
+    .floating-elements {
+        display: none;
+    }
+    
+    .particles {
+        display: none;
+    }
+}
+
+/* Animation for style transitions */
+body {
+    transition: background 0.8s ease;
+}
+
+.games-section {
+    transition: all 0.8s ease;
+}
+
+.game-card {
+    transition: all 0.4s ease;
+}

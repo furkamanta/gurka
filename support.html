@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support - FockGaming</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d-styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link rel="stylesheet" href="support.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-style-1">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Fock<span class="pro">Gaming</span></span>
+                </div>
+                
+                <nav class="nav">
+                    <a href="index.html#games" data-translate="nav.games">Games</a>
+                    <a href="index.html#services" data-translate="nav.services">Services</a>
+                    <a href="support.html" class="active" data-translate="nav.support">Support</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <button class="lang-btn" onclick="toggleLanguageMenu()">
+                            <span class="flag">🇺🇸</span>
+                            <span data-translate="lang.english">English</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-menu" id="langMenu">
+                            <div class="lang-option" onclick="changeLanguage('en')">
+                                <span class="flag">🇺🇸</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ar')">
+                                <span class="flag">🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ru')">
+                                <span class="flag">🇷🇺</span>
+                                <span>Русский</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Support Hero Section -->
+    <section class="support-hero">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+            <div class="hero-glow"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h1>24/7 Customer Support</h1>
+                <p>Get instant help from our expert support team. We're here to assist you with any questions or issues.</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">< 2min</div>
+                        <div class="stat-label">Average Response</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Options -->
+    <section class="support-options">
+        <div class="container">
+            <div class="section-header">
+                <h2>How Can We Help You?</h2>
+                <p>Choose the best way to get support based on your needs</p>
+            </div>
+            
+            <div class="options-grid">
+                <div class="option-card live-chat-card" onclick="openLiveChat()">
+                    <div class="option-icon">
+                        <i class="fas fa-comments"></i>
+                        <div class="status-indicator online"></div>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support agents in real-time</p>
+                    <div class="option-features">
+                        <span class="feature-tag">Instant Response</span>
+                        <span class="feature-tag">Screen Sharing</span>
+                    </div>
+                    <div class="option-footer">
+                        <span class="availability">Online Now</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <div class="option-card ticket-card" onclick="openTicketSystem()">
+                    <div class="option-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3>Support Ticket</h3>
+                    <p>Submit a detailed support request</p>
+                    <div class="option-features">
+                        <span class="feature-tag">File Attachments</span>
+                        <span class="feature-tag">Priority Support</span>
+                    </div>
+                    <div class="option-footer">
+                        <span class="availability">Response in 1-2 hours</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <div class="option-card knowledge-card" onclick="openKnowledgeBase()">
+                    <div class="option-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Knowledge Base</h3>
+                    <p>Find answers in our comprehensive guides</p>
+                    <div class="option-features">
+                        <span class="feature-tag">Step-by-step</span>
+                        <span class="feature-tag">Video Tutorials</span>
+                    </div>
+                    <div class="option-footer">
+                        <span class="availability">Self-service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Chat Interface -->
+    <div class="chat-overlay" id="chatOverlay">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <div class="agent-avatar">
+                        <i class="fas fa-user-tie"></i>
+                        <div class="status-dot online"></div>
+                    </div>
+                    <div class="agent-info">
+                        <div class="agent-name">Support Agent</div>
+                        <div class="agent-status">Online • Typically replies in minutes</div>
+                    </div>
+                </div>
+                <div class="chat-header-right">
+                    <button class="chat-action-btn" onclick="minimizeChat()" title="Minimize">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button class="chat-action-btn" onclick="closeChat()" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message-group">
+                    <div class="message agent-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <div class="message-text">Hello! 👋 Welcome to FockGaming support. I'm here to help you with any questions or issues you might have.</div>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="user-info-display" id="userInfoDisplay">
+                    <div class="user-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="userLocation">Loading location...</span>
+                    </div>
+                    <div class="user-ip">
+                        <i class="fas fa-globe"></i>
+                        <span id="userIP">Loading IP...</span>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="chatInput" placeholder="Type your message..." maxlength="500">
+                        <div class="input-actions">
+                            <button class="attachment-btn" onclick="attachFile()" title="Attach file">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button class="emoji-btn" onclick="toggleEmojiPicker()" title="Add emoji">
+                                <i class="fas fa-smile"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="typing-text">Agent is typing...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket System Modal -->
+    <div class="modal-overlay" id="ticketModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Submit Support Ticket</h3>
+                <button class="modal-close" onclick="closeTicketModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="ticketForm" class="ticket-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ticketName">Full Name *</label>
+                            <input type="text" id="ticketName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketEmail">Email Address *</label>
+                            <input type="email" id="ticketEmail" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ticketCategory">Category *</label>
+                            <select id="ticketCategory" required>
+                                <option value="">Select a category</option>
+                                <option value="payment">Payment Issues</option>
+                                <option value="account">Account Problems</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="refund">Refund Request</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ticketPriority">Priority</label>
+                            <select id="ticketPriority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketSubject">Subject *</label>
+                        <input type="text" id="ticketSubject" placeholder="Brief description of your issue" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketDescription">Description *</label>
+                        <textarea id="ticketDescription" rows="6" placeholder="Please provide detailed information about your issue..." required></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/2000
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ticketAttachment">Attachments</label>
+                        <div class="file-upload-area" onclick="document.getElementById('ticketAttachment').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Click to upload files or drag and drop</span>
+                            <small>Max file size: 10MB. Supported: JPG, PNG, PDF, TXT</small>
+                        </div>
+                        <input type="file" id="ticketAttachment" multiple accept=".jpg,.jpeg,.png,.pdf,.txt" style="display: none;">
+                        <div class="uploaded-files" id="uploadedFiles"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeTicketModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Ticket
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Knowledge Base Modal -->
+    <div class="modal-overlay" id="knowledgeModal">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <h3>Knowledge Base</h3>
+                <div class="search-container">
+                    <input type="text" id="kbSearch" placeholder="Search articles...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="modal-close" onclick="closeKnowledgeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="kb-sidebar">
+                    <div class="kb-categories">
+                        <div class="kb-category active" data-category="all">
+                            <i class="fas fa-list"></i>
+                            All Articles
+                        </div>
+                        <div class="kb-category" data-category="getting-started">
+                            <i class="fas fa-play"></i>
+                            Getting Started
+                        </div>
+                        <div class="kb-category" data-category="payments">
+                            <i class="fas fa-credit-card"></i>
+                            Payments
+                        </div>
+                        <div class="kb-category" data-category="account">
+                            <i class="fas fa-user"></i>
+                            Account
+                        </div>
+                        <div class="kb-category" data-category="technical">
+                            <i class="fas fa-cog"></i>
+                            Technical
+                        </div>
+                    </div>
+                </div>
+                <div class="kb-content">
+                    <div class="kb-articles" id="kbArticles">
+                        <!-- Articles will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="translations.js"></script>
+    <script src="support.js"></script>
+    <script>
+        // Initialize support system
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSupport();
+            loadUserInfo();
+            loadKnowledgeBase();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Windows DNS Temizleme Komutları
+# Komut satırını Administrator olarak açın ve şu komutları çalıştırın:
+
+ipconfig /flushdns
+ipconfig /registerdns
+ipconfig /release
+ipconfig /renew
+netsh winsock reset
+
+# Alternatif DNS sunucuları (Network ayarlarından değiştirin):
+Primary DNS: 8.8.8.8 (Google)
+Secondary DNS: 1.1.1.1 (Cloudflare)
+
+# Veya:
+Primary DNS: 1.1.1.1 (Cloudflare)
+Secondary DNS: 8.8.4.4 (Google)
+
+# Manuel kontrol için:
+nslookup fockgaming.com 8.8.8.8
+ping fockgaming.com

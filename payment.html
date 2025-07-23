@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment - FockGaming</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d-styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link rel="stylesheet" href="payment-3d.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-style-1">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Fock<span class="pro">Gaming</span></span>
+                </div>
+                
+                <div class="payment-progress">
+                    <div class="progress-step completed">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Cart</span>
+                    </div>
+                    <div class="progress-line active"></div>
+                    <div class="progress-step active">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Payment</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">
+                        <i class="fas fa-check"></i>
+                        <span>Complete</span>
+                    </div>
+                </div>
+
+                <div class="security-header">
+                    <div class="security-badge-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Security Badges -->
+    <section class="security-section">
+        <div class="container">
+            <div class="security-badges">
+                <div class="security-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="badge-content">
+                        <h4>256-bit SSL</h4>
+                        <p>Bank-level encryption</p>
+                    </div>
+                </div>
+                <div class="security-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="badge-content">
+                        <h4>3D Secure</h4>
+                        <p>Extra layer protection</p>
+                    </div>
+                </div>
+                <div class="security-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="badge-content">
+                        <h4>PCI Compliant</h4>
+                        <p>Industry standard</p>
+                    </div>
+                </div>
+                <div class="security-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="badge-content">
+                        <h4>Fraud Protection</h4>
+                        <p>Advanced monitoring</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section" style="margin-top: 2rem; padding-top: 2rem;">
+        <div class="container">
+            <div class="payment-container-3d">
+                <!-- Order Summary Card -->
+                <div class="order-summary-3d">
+                    <div class="card-3d">
+                        <div class="card-header">
+                            <h2 data-translate="payment.order.title">Order Summary</h2>
+                            <div class="secure-badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Secure</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-items" id="orderItems">
+                            <!-- Items will be loaded here -->
+                        </div>
+                        
+                        <div class="order-total">
+                            <div class="total-row">
+                                <span data-translate="payment.subtotal">Subtotal:</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="total-row discount">
+                                <span data-translate="payment.discount">First Purchase Discount (65%):</span>
+                                <span id="discount">-$0.00</span>
+                            </div>
+                            <div class="total-row final">
+                                <span data-translate="payment.total">Total:</span>
+                                <span id="total">$0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-methods">
+                            <h4 data-translate="payment.methods">Accepted Payment Methods</h4>
+                            <div class="payment-icons">
+                                <div class="payment-icon"><i class="fab fa-cc-visa"></i></div>
+                                <div class="payment-icon"><i class="fab fa-cc-mastercard"></i></div>
+                                <div class="payment-icon"><i class="fab fa-cc-amex"></i></div>
+                                <div class="payment-icon"><i class="fab fa-cc-paypal"></i></div>
+                                <div class="payment-icon"><i class="fas fa-university"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="trust-indicators">
+                            <div class="trust-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Instant Delivery</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fas fa-undo"></i>
+                                <span>24h Refund Policy</span>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fas fa-headset"></i>
+                                <span>24/7 Support</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form Card -->
+                <div class="payment-form-3d">
+                    <div class="card-3d">
+                        <div class="card-header">
+                            <h1 data-translate="payment.title">Complete Your Purchase</h1>
+                            <div class="security-indicators">
+                                <div class="security-indicator">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>3D Secure</span>
+                                </div>
+                                <div class="security-indicator">
+                                    <i class="fas fa-lock"></i>
+                                    <span>SSL Protected</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <form id="paymentForm" class="payment-form-3d">
+                            <!-- Personal Information -->
+                            <div class="form-section-3d">
+                                <div class="section-header">
+                                    <i class="fas fa-user"></i>
+                                    <h3 data-translate="payment.personal">Personal Information</h3>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d">
+                                        <label for="firstName" data-translate="payment.firstname">First Name</label>
+                                        <input type="text" id="firstName" name="firstName" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                    <div class="form-group-3d">
+                                        <label for="lastName" data-translate="payment.lastname">Last Name</label>
+                                        <input type="text" id="lastName" name="lastName" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d">
+                                        <label for="email" data-translate="payment.email">Email Address</label>
+                                        <input type="email" id="email" name="email" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                    <div class="form-group-3d">
+                                        <label for="phone" data-translate="payment.phone">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Billing Address -->
+                            <div class="form-section-3d">
+                                <div class="section-header">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <h3 data-translate="payment.billing">Billing Address</h3>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d">
+                                        <label for="country" data-translate="payment.country">Country</label>
+                                        <select id="country" name="country" required>
+                                            <option value="">Select Country</option>
+                                            <option value="US">🇺🇸 United States</option>
+                                            <option value="CA">🇨🇦 Canada</option>
+                                            <option value="GB">🇬🇧 United Kingdom</option>
+                                            <option value="DE">🇩🇪 Germany</option>
+                                            <option value="FR">🇫🇷 France</option>
+                                            <option value="TR">🇹🇷 Turkey</option>
+                                            <option value="SA">🇸🇦 Saudi Arabia</option>
+                                            <option value="RU">🇷🇺 Russia</option>
+                                            <option value="AU">🇦🇺 Australia</option>
+                                            <option value="BR">🇧🇷 Brazil</option>
+                                            <option value="IN">🇮🇳 India</option>
+                                            <option value="JP">🇯🇵 Japan</option>
+                                            <option value="KR">🇰🇷 South Korea</option>
+                                            <option value="CN">🇨🇳 China</option>
+                                            <option value="MX">🇲🇽 Mexico</option>
+                                            <option value="IT">🇮🇹 Italy</option>
+                                            <option value="ES">🇪🇸 Spain</option>
+                                            <option value="NL">🇳🇱 Netherlands</option>
+                                            <option value="SE">🇸🇪 Sweden</option>
+                                            <option value="NO">🇳🇴 Norway</option>
+                                            <option value="DK">🇩🇰 Denmark</option>
+                                            <option value="FI">🇫🇮 Finland</option>
+                                            <option value="PL">🇵🇱 Poland</option>
+                                            <option value="CZ">🇨🇿 Czech Republic</option>
+                                            <option value="AT">🇦🇹 Austria</option>
+                                            <option value="CH">🇨🇭 Switzerland</option>
+                                            <option value="BE">🇧🇪 Belgium</option>
+                                            <option value="PT">🇵🇹 Portugal</option>
+                                            <option value="GR">🇬🇷 Greece</option>
+                                            <option value="IL">🇮🇱 Israel</option>
+                                            <option value="AE">🇦🇪 United Arab Emirates</option>
+                                            <option value="EG">🇪🇬 Egypt</option>
+                                            <option value="ZA">🇿🇦 South Africa</option>
+                                            <option value="NG">🇳🇬 Nigeria</option>
+                                            <option value="KE">🇰🇪 Kenya</option>
+                                            <option value="AR">🇦🇷 Argentina</option>
+                                            <option value="CL">🇨🇱 Chile</option>
+                                            <option value="CO">🇨🇴 Colombia</option>
+                                            <option value="PE">🇵🇪 Peru</option>
+                                            <option value="VE">🇻🇪 Venezuela</option>
+                                            <option value="TH">🇹🇭 Thailand</option>
+                                            <option value="VN">🇻🇳 Vietnam</option>
+                                            <option value="PH">🇵🇭 Philippines</option>
+                                            <option value="ID">🇮🇩 Indonesia</option>
+                                            <option value="MY">🇲🇾 Malaysia</option>
+                                            <option value="SG">🇸🇬 Singapore</option>
+                                            <option value="HK">🇭🇰 Hong Kong</option>
+                                            <option value="TW">🇹🇼 Taiwan</option>
+                                            <option value="NZ">🇳🇿 New Zealand</option>
+                                            <option value="IE">🇮🇪 Ireland</option>
+                                            <option value="LU">🇱🇺 Luxembourg</option>
+                                            <option value="IS">🇮🇸 Iceland</option>
+                                            <option value="MT">🇲🇹 Malta</option>
+                                            <option value="CY">🇨🇾 Cyprus</option>
+                                            <option value="HR">🇭🇷 Croatia</option>
+                                            <option value="SI">🇸🇮 Slovenia</option>
+                                            <option value="SK">🇸🇰 Slovakia</option>
+                                            <option value="HU">🇭🇺 Hungary</option>
+                                            <option value="RO">🇷🇴 Romania</option>
+                                            <option value="BG">🇧🇬 Bulgaria</option>
+                                            <option value="LT">🇱🇹 Lithuania</option>
+                                            <option value="LV">🇱🇻 Latvia</option>
+                                            <option value="EE">🇪🇪 Estonia</option>
+                                            <option value="UA">🇺🇦 Ukraine</option>
+                                            <option value="BY">🇧🇾 Belarus</option>
+                                            <option value="KZ">🇰🇿 Kazakhstan</option>
+                                            <option value="UZ">🇺🇿 Uzbekistan</option>
+                                            <option value="AZ">🇦🇿 Azerbaijan</option>
+                                            <option value="GE">🇬🇪 Georgia</option>
+                                            <option value="AM">🇦🇲 Armenia</option>
+                                            <option value="QA">🇶🇦 Qatar</option>
+                                            <option value="KW">🇰🇼 Kuwait</option>
+                                            <option value="BH">🇧🇭 Bahrain</option>
+                                            <option value="OM">🇴🇲 Oman</option>
+                                            <option value="JO">🇯🇴 Jordan</option>
+                                            <option value="LB">🇱🇧 Lebanon</option>
+                                            <option value="IQ">🇮🇶 Iraq</option>
+                                            <option value="IR">🇮🇷 Iran</option>
+                                            <option value="PK">🇵🇰 Pakistan</option>
+                                            <option value="BD">🇧🇩 Bangladesh</option>
+                                            <option value="LK">🇱🇰 Sri Lanka</option>
+                                            <option value="NP">🇳🇵 Nepal</option>
+                                            <option value="MM">🇲🇲 Myanmar</option>
+                                            <option value="KH">🇰🇭 Cambodia</option>
+                                            <option value="LA">🇱🇦 Laos</option>
+                                            <option value="BN">🇧🇳 Brunei</option>
+                                        </select>
+                                        <div class="input-border"></div>
+                                    </div>
+                                    <div class="form-group-3d">
+                                        <label for="region" data-translate="payment.region">Region / State</label>
+                                        <input type="text" id="region" name="region" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d">
+                                        <label for="city" data-translate="payment.city">City / Town</label>
+                                        <input type="text" id="city" name="city" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                    <div class="form-group-3d">
+                                        <label for="zip" data-translate="payment.zip">Zip / Postal Code</label>
+                                        <input type="text" id="zip" name="zip" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d full-width">
+                                        <label for="address" data-translate="payment.address">Street Address</label>
+                                        <input type="text" id="address" name="address" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Information -->
+                            <div class="form-section-3d">
+                                <div class="section-header">
+                                    <i class="fas fa-credit-card"></i>
+                                    <h3 data-translate="payment.card">Payment Information</h3>
+                                    <div class="card-security">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>3D Secure</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d full-width">
+                                        <label for="cardNumber" data-translate="payment.cardnumber">Card Number</label>
+                                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                        <div class="input-border"></div>
+                                        <div class="card-type" id="cardType"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group-3d">
+                                        <label for="expiry" data-translate="payment.expiry">Expiry Date (MM/YY)</label>
+                                        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                                        <div class="input-border"></div>
+                                    </div>
+                                    <div class="form-group-3d">
+                                        <label for="cvv" data-translate="payment.cvv">CVV</label>
+                                        <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                                        <div class="input-border"></div>
+                                        <div class="cvv-help">
+                                            <i class="fas fa-question-circle"></i>
+                                            <div class="cvv-tooltip">3-digit code on back of card</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-security-info">
+                                <div class="security-info-item">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Your payment information is encrypted and secure</span>
+                                </div>
+                                <div class="security-info-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Protected by 3D Secure authentication</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="pay-button-3d" data-translate="payment.pay">
+                                <div class="button-content">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Pay Securely Now</span>
+                                </div>
+                                <div class="button-glow"></div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Security -->
+    <footer class="payment-footer">
+        <div class="container">
+            <div class="footer-security">
+                <div class="security-logos">
+                    <div class="security-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>SSL Secured</span>
+                    </div>
+                    <div class="security-logo">
+                        <i class="fas fa-lock"></i>
+                        <span>256-bit Encryption</span>
+                    </div>
+                    <div class="security-logo">
+                        <i class="fas fa-certificate"></i>
+                        <span>PCI DSS Compliant</span>
+                    </div>
+                </div>
+                <p>&copy; 2024 FockGaming. All transactions are secure and encrypted.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Processing Modal (3D Card Style) -->
+    <div id="processingModal" class="modal modal-3d">
+        <div class="modal-content card-3d modal-card-3d">
+            <div class="processing-animation">
+                <div class="spinner"></div>
+            </div>
+            <h3 style="margin-top:1rem;">Processing Payment...</h3>
+            <p style="margin-bottom:1rem;">Please wait while we securely process your payment.</p>
+            <div class="security-indicators-modal">
+                <div class="security-indicator">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>3D Secure</span>
+                </div>
+                <div class="security-indicator">
+                    <i class="fas fa-lock"></i>
+                    <span>SSL Protected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal (3D Card Style) -->
+    <div id="errorModal" class="modal modal-3d">
+        <div class="modal-content card-3d modal-card-3d error">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 style="margin-top:1rem; color:#ff4d4f;">❌ Payment Declined</h3>
+            <p style="margin-bottom:1rem;">Please try a different card or contact your bank.</p>
+            <button onclick="closeErrorModal()" class="retry-button">Try Again</button>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="payment.js"></script>
+    <!-- <script src="payment-3d.js"></script> Temporarily disabled to avoid conflicts -->
+</body>
+</html>

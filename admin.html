@@ -1,0 +1,1291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - FockGaming</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d-styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay active">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                Debug: Press F12 to open console for troubleshooting
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-content">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Fock<span class="pro">Gaming</span> Admin</span>
+                </div>
+                <div class="admin-actions">
+                    <button class="telegram-btn" onclick="sendTotalReport()">
+                        <i class="fab fa-telegram"></i>
+                        Send Report
+                    </button>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="admin-nav">
+            <button class="nav-btn active" onclick="showSection('dashboard')">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </button>
+            <button class="nav-btn" onclick="showSection('transactions')">
+                <i class="fas fa-credit-card"></i>
+                Transactions
+            </button>
+            <button class="nav-btn" onclick="showSection('visitors')">
+                <i class="fas fa-users"></i>
+                Visitors
+            </button>
+            <button class="nav-btn" onclick="showSection('support')">
+                <i class="fas fa-headset"></i>
+                Customer Support
+                <span class="support-notification" id="supportNotification" style="display: none;">0</span>
+            </button>
+            <button class="nav-btn" onclick="showSection('games')">
+                <i class="fas fa-gamepad"></i>
+                Games & Prices
+            </button>
+            <button class="nav-btn" onclick="showSection('logos')">
+                <i class="fas fa-image"></i>
+                Logo Management
+            </button>
+            <button class="nav-btn" onclick="showSection('styles')">
+                <i class="fas fa-palette"></i>
+                Package Styles
+            </button>
+            <button class="nav-btn" onclick="showSection('backgrounds')">
+                <i class="fas fa-images"></i>
+                Package Backgrounds
+            </button>
+
+
+
+            <button class="nav-btn" onclick="showSection('settings')">
+                <i class="fas fa-cog"></i>
+                Settings
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <h1>Dashboard</h1>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalVisitors">0</div>
+                            <div class="stat-label">Total Visitors</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalTransactions">0</div>
+                            <div class="stat-label">Payment Attempts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalRevenue">$0</div>
+                            <div class="stat-label">Total Revenue</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="todayVisitors">0</div>
+                            <div class="stat-label">Today's Visitors</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list" id="recentActivity">
+                            <!-- Activity items will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3>Top Countries</h3>
+                        <div class="country-list" id="topCountries">
+                            <!-- Country stats will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section id="transactions" class="admin-section">
+                <h1>Payment Transactions</h1>
+                
+                <div class="section-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="transactionSearch" placeholder="Search transactions...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="transactionFilter">
+                            <option value="all">All Transactions</option>
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                        </select>
+                        <button class="export-btn" onclick="exportTransactions()">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Country</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Card</th>
+                                <th>IP</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTable">
+                            <!-- Transaction rows will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Visitors Section -->
+            <section id="visitors" class="admin-section">
+                <h1>Website Visitors</h1>
+                
+                <div class="section-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="visitorSearch" placeholder="Search visitors...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="visitorFilter">
+                            <option value="all">All Visitors</option>
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                        </select>
+                        <button class="export-btn" onclick="exportVisitors()">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>IP Address</th>
+                                <th>Country</th>
+                                <th>Device</th>
+                                <th>Browser</th>
+                                <th>Language</th>
+                                <th>Referrer</th>
+                                <th>Page</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visitorsTable">
+                            <!-- Visitor rows will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Games & Prices Section -->
+            <section id="games" class="admin-section">
+                <h1>Games & Prices Management</h1>
+                
+                <div class="section-controls">
+                    <button class="add-btn" onclick="showAddGameModal()">
+                        <i class="fas fa-plus"></i>
+                        Add Game
+                    </button>
+                    <button class="save-btn" onclick="saveGamesData()">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                    <button class="export-btn" onclick="exportGameLogos()">
+                        <i class="fas fa-download"></i>
+                        Export Logos
+                    </button>
+                    <div class="file-input-group">
+                        <label for="importLogos">Import Logos</label>
+                        <input type="file" id="importLogos" accept=".zip" onchange="importGameLogos(this)">
+                    </div>
+                </div>
+                
+                <div class="games-grid" id="gamesManagement">
+                    <!-- Game management cards will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Logo Management Section -->
+            <section id="logos" class="admin-section">
+                <h1>Logo Management</h1>
+                
+                <div class="section-controls">
+                    <button class="save-btn" onclick="saveLogos()">
+                        <i class="fas fa-save"></i>
+                        Save All Logos
+                    </button>
+                    <button class="export-btn" onclick="exportLogos()">
+                        <i class="fas fa-download"></i>
+                        Export Logos
+                    </button>
+                    <button class="warning-btn" onclick="clearUnusedLogos()" style="background: #f59e0b;">
+                        <i class="fas fa-broom"></i>
+                        Clear Unused Logos
+                    </button>
+                    <button class="danger-btn" onclick="clearAllLogos()" style="background: #ef4444;">
+                        <i class="fas fa-trash"></i>
+                        Clear All Logos
+                    </button>
+                    <div class="file-input-group">
+                        <label for="importLogosZip">Import Logos (ZIP)</label>
+                        <input type="file" id="importLogosZip" accept=".zip" onchange="importLogosZip(this)">
+                    </div>
+                </div>
+                
+                <div class="storage-info" id="storageInfo" style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Storage Usage: <span id="storageSize">Calculating...</span></span>
+                        <button onclick="checkStorageSize()" style="background: #22c55e; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                            <i class="fas fa-refresh"></i> Refresh
+                        </button>
+                    </div>
+                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #888;">
+                        Logos: <span id="logoCount">0</span> | Recommended: Keep under 8MB
+                    </div>
+                </div>
+                
+                <div class="logos-grid" id="logosGrid">
+                    <!-- Logo management cards will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Package Styles Section -->
+            <section id="styles" class="admin-section">
+                <h1>Website Styles & Themes</h1>
+                
+                <!-- 3D Background Styles -->
+                <div class="style-category">
+                    <h2><i class="fas fa-cube"></i> 3D Background Themes</h2>
+                    <p>Choose from modern 3D background themes for your website</p>
+                    
+                    <div class="bg-styles-grid">
+                        <div class="bg-style-card" data-style="1">
+                            <div class="bg-style-preview bg-style-1-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Dark Gaming</div>
+                                        <div class="preview-subtitle">Current Theme</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Dark Gaming Theme</h4>
+                                <p>Classic dark theme with green accents</p>
+                                <button class="style-btn active" onclick="changeBgStyle(1)">
+                                    <i class="fas fa-check"></i> Active
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="2">
+                            <div class="bg-style-preview bg-style-2-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Neon Cyber</div>
+                                        <div class="preview-subtitle">Futuristic</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Neon Cyber Theme</h4>
+                                <p>Cyberpunk style with neon effects</p>
+                                <button class="style-btn" onclick="changeBgStyle(2)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="3">
+                            <div class="bg-style-preview bg-style-3-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Holographic</div>
+                                        <div class="preview-subtitle">Glass Effect</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Holographic Glass</h4>
+                                <p>Modern glass morphism design</p>
+                                <button class="style-btn" onclick="changeBgStyle(3)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="4">
+                            <div class="bg-style-preview bg-style-4-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Matrix Digital</div>
+                                        <div class="preview-subtitle">Code Rain</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Matrix Digital Theme</h4>
+                                <p>Matrix-inspired green code theme</p>
+                                <button class="style-btn" onclick="changeBgStyle(4)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="5">
+                            <div class="bg-style-preview bg-style-5-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Quantum Wave</div>
+                                        <div class="preview-subtitle">Energy Flow</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Quantum Wave Theme</h4>
+                                <p>Dynamic quantum energy effects</p>
+                                <button class="style-btn" onclick="changeBgStyle(5)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="6">
+                            <div class="bg-style-preview bg-style-6-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Neural Network</div>
+                                        <div class="preview-subtitle">AI Brain</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Neural Network Theme</h4>
+                                <p>AI-inspired neural connections</p>
+                                <button class="style-btn" onclick="changeBgStyle(6)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="7">
+                            <div class="bg-style-preview bg-style-7-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Crystalline Prism</div>
+                                        <div class="preview-subtitle">Crystal Tech</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Crystalline Prism Theme</h4>
+                                <p>Futuristic crystal technology</p>
+                                <button class="style-btn" onclick="changeBgStyle(7)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="8">
+                            <div class="bg-style-preview bg-style-8-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Plasma Energy</div>
+                                        <div class="preview-subtitle">Power Core</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Plasma Energy Theme</h4>
+                                <p>High-energy plasma effects</p>
+                                <button class="style-btn" onclick="changeBgStyle(8)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-style-card" data-style="9">
+                            <div class="bg-style-preview bg-style-9-preview">
+                                <div class="preview-content">
+                                    <div class="preview-card">
+                                        <div class="preview-title">Cosmic Nebula</div>
+                                        <div class="preview-subtitle">Deep Space</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-style-info">
+                                <h4>Cosmic Nebula Theme</h4>
+                                <p>Deep space nebula atmosphere</p>
+                                <button class="style-btn" onclick="changeBgStyle(9)">
+                                    <i class="fas fa-palette"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="premium-section">
+                        <h3><i class="fas fa-crown"></i> Premium Gaming Themes</h3>
+                        <p>Exclusive green-black themed designs optimized for gaming</p>
+                        
+                        <div class="bg-styles-grid premium-grid">
+                            <div class="bg-style-card premium-card" data-style="10">
+                                <div class="bg-style-preview bg-style-10-preview">
+                                    <div class="preview-content">
+                                        <div class="preview-card">
+                                            <div class="preview-title">Emerald Matrix</div>
+                                            <div class="preview-subtitle">Elite Gaming</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-style-info">
+                                    <h4><i class="fas fa-gem"></i> Emerald Matrix</h4>
+                                    <p>Elegant green gaming with flowing borders</p>
+                                    <button class="style-btn premium-btn" onclick="changeBgStyle(10)">
+                                        <i class="fas fa-crown"></i> Apply Premium
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-style-card premium-card" data-style="11">
+                                <div class="bg-style-preview bg-style-11-preview">
+                                    <div class="preview-content">
+                                        <div class="preview-card">
+                                            <div class="preview-title">Neon Circuit</div>
+                                            <div class="preview-subtitle">Gaming Hub</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-style-info">
+                                    <h4><i class="fas fa-microchip"></i> Neon Circuit</h4>
+                                    <p>Futuristic gaming hub with circuit patterns</p>
+                                    <button class="style-btn premium-btn" onclick="changeBgStyle(11)">
+                                        <i class="fas fa-crown"></i> Apply Premium
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-style-card premium-card" data-style="12">
+                                <div class="bg-style-preview bg-style-12-preview">
+                                    <div class="preview-content">
+                                        <div class="preview-card">
+                                            <div class="preview-title">Quantum Gaming</div>
+                                            <div class="preview-subtitle">Next-Gen</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-style-info">
+                                    <h4><i class="fas fa-atom"></i> Quantum Gaming</h4>
+                                    <p>Next-generation quantum gaming experience</p>
+                                    <button class="style-btn premium-btn" onclick="changeBgStyle(12)">
+                                        <i class="fas fa-crown"></i> Apply Premium
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Package Display Styles -->
+                <div class="style-category">
+                    <h2><i class="fas fa-box"></i> Package Display Styles</h2>
+                    
+                    <div class="section-controls">
+                        <button class="save-btn" onclick="savePackageStyles()">
+                            <i class="fas fa-save"></i>
+                            Save Styles
+                        </button>
+                        <button class="add-btn" onclick="addNewStyle()">
+                            <i class="fas fa-plus"></i>
+                            Add New Style
+                        </button>
+                        <button class="manage-btn" onclick="toggleBackgroundManager()">
+                            <i class="fas fa-image"></i>
+                            Manage Backgrounds
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Background Images Management -->
+                <div id="backgroundManager" class="background-manager" style="display: none;">
+                    <h3>Package Background Images</h3>
+                    <div class="background-controls">
+                        <div class="file-input-group">
+                            <label for="backgroundImageUpload">Upload Background Image</label>
+                            <input type="file" id="backgroundImageUpload" accept="image/*" onchange="uploadBackgroundImage(this)">
+                        </div>
+                        <button class="clear-btn" onclick="clearAllBackgrounds()">
+                            <i class="fas fa-trash"></i>
+                            Clear All Backgrounds
+                        </button>
+                    </div>
+                    
+                    <div class="background-grid" id="backgroundGrid">
+                        <!-- Background images will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="styles-container">
+                    <div class="current-style">
+                        <h3>Current Active Style</h3>
+                        <div class="style-preview" id="currentStylePreview">
+                            <!-- Current style preview -->
+                        </div>
+                    </div>
+                    
+                    <div class="available-styles">
+                        <h3>Available Styles</h3>
+                        <div class="styles-grid" id="stylesGrid">
+                            <!-- Style options will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Support Section -->
+            <section id="support" class="admin-section">
+                <h1>Customer Support Management</h1>
+                
+                <div class="support-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="activeChatCount">0</div>
+                            <div class="stat-label">Active Chats</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="openTicketCount">0</div>
+                            <div class="stat-label">Open Tickets</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="avgResponseTime">2m</div>
+                            <div class="stat-label">Avg Response</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="satisfactionRate">98%</div>
+                            <div class="stat-label">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="support-tabs">
+                    <button class="support-tab active" onclick="showSupportTab('chats')">
+                        <i class="fas fa-comments"></i>
+                        Live Chats
+                        <span class="tab-badge" id="chatsBadge">0</span>
+                    </button>
+                    <button class="support-tab" onclick="showSupportTab('tickets')">
+                        <i class="fas fa-ticket-alt"></i>
+                        Support Tickets
+                        <span class="tab-badge" id="ticketsBadge">0</span>
+                    </button>
+                    <button class="support-tab" onclick="showSupportTab('knowledge')">
+                        <i class="fas fa-book"></i>
+                        Knowledge Base
+                    </button>
+                    <button class="support-tab" onclick="showSupportTab('settings')">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </button>
+                </div>
+
+                <!-- Live Chats Tab -->
+                <div id="chatsTab" class="support-tab-content active">
+                    <div class="chats-header">
+                        <h3>Active Chat Sessions</h3>
+                        <div class="chats-actions">
+                            <button class="action-btn" onclick="refreshChats()">
+                                <i class="fas fa-sync-alt"></i>
+                                Refresh
+                            </button>
+                            <button class="action-btn" onclick="exportChats()">
+                                <i class="fas fa-download"></i>
+                                Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chats-container">
+                        <div class="chats-list" id="chatsList">
+                            <div class="no-chats">
+                                <i class="fas fa-comments"></i>
+                                <h4>No active chats</h4>
+                                <p>Chat sessions will appear here when users start conversations</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-detail" id="chatDetail">
+                            <div class="chat-detail-header">
+                                <div class="user-info">
+                                    <div class="user-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="user-details">
+                                        <div class="user-name">Select a chat</div>
+                                        <div class="user-location">to view details</div>
+                                    </div>
+                                </div>
+                                <div class="chat-actions">
+                                    <button class="chat-action-btn" onclick="transferChat()" title="Transfer Chat">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </button>
+                                    <button class="chat-action-btn" onclick="endChat()" title="End Chat">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-messages-container" id="adminChatMessages">
+                                <div class="select-chat-message">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span>Select a chat from the list to view conversation</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-input-container" id="adminChatInput" style="display: none;">
+                                <div class="input-wrapper">
+                                    <input type="text" id="adminMessageInput" placeholder="Type your response...">
+                                    <button class="send-btn" onclick="sendAdminMessage()">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Tickets Tab -->
+                <div id="ticketsTab" class="support-tab-content">
+                    <div class="tickets-header">
+                        <h3>Support Tickets</h3>
+                        <div class="tickets-filters">
+                            <select id="ticketStatusFilter" onchange="filterTickets()">
+                                <option value="all">All Status</option>
+                                <option value="open">Open</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                            <select id="ticketPriorityFilter" onchange="filterTickets()">
+                                <option value="all">All Priority</option>
+                                <option value="urgent">Urgent</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Customer</th>
+                                    <th>Subject</th>
+                                    <th>Category</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsTableBody">
+                                <tr>
+                                    <td colspan="8" class="no-data">No support tickets found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Knowledge Base Tab -->
+                <div id="knowledgeTab" class="support-tab-content">
+                    <div class="kb-header">
+                        <h3>Knowledge Base Management</h3>
+                        <button class="action-btn primary" onclick="addKBArticle()">
+                            <i class="fas fa-plus"></i>
+                            Add Article
+                        </button>
+                    </div>
+                    
+                    <div class="kb-stats">
+                        <div class="kb-stat">
+                            <div class="kb-stat-number">24</div>
+                            <div class="kb-stat-label">Total Articles</div>
+                        </div>
+                        <div class="kb-stat">
+                            <div class="kb-stat-number">1,250</div>
+                            <div class="kb-stat-label">Total Views</div>
+                        </div>
+                        <div class="kb-stat">
+                            <div class="kb-stat-number">89%</div>
+                            <div class="kb-stat-label">Helpful Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="kb-articles-grid" id="kbArticlesGrid">
+                        <!-- Articles will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settingsTab" class="support-tab-content">
+                    <div class="settings-header">
+                        <h3>Support Settings</h3>
+                    </div>
+                    
+                    <div class="settings-groups">
+                        <div class="settings-group">
+                            <h4>Chat Settings</h4>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="enableLiveChat" checked>
+                                    Enable Live Chat
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    Auto Response Delay (seconds)
+                                    <input type="number" id="autoResponseDelay" value="2" min="1" max="10">
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    Welcome Message
+                                    <textarea id="welcomeMessage" rows="3">Hello! Welcome to FockGaming support. How can I help you today?</textarea>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h4>Ticket Settings</h4>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="enableTickets" checked>
+                                    Enable Support Tickets
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    Auto-assign Priority
+                                    <select id="defaultPriority">
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h4>Notifications</h4>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    Email Notifications
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="soundNotifications" checked>
+                                    Sound Notifications
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-actions">
+                        <button class="save-btn" onclick="saveSupportSettings()">
+                            <i class="fas fa-save"></i>
+                            Save Settings
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Package Backgrounds Section -->
+            <section id="backgrounds" class="admin-section">
+                <h1>Package Background Management</h1>
+                
+                <div class="section-controls">
+                    <button class="save-btn" onclick="savePackageBackgrounds()">
+                        <i class="fas fa-save"></i>
+                        Save Backgrounds
+                    </button>
+                    <button class="upload-btn" onclick="saveBannerData()" style="margin-left: 10px;">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Save Banners to Server
+                    </button>
+                    <button class="reset-btn" onclick="resetAllBackgrounds()">
+                        <i class="fas fa-undo"></i>
+                        Reset All
+                    </button>
+                </div>
+                
+                <!-- Global Background Application -->
+                <div class="global-background-section">
+                    <h3>
+                        <i class="fas fa-layer-group"></i>
+                        Apply Background to All Packages
+                    </h3>
+                    <div class="global-background-controls">
+                        <div class="upload-section">
+                            <input type="file" id="globalBackgroundFile" accept="image/*" style="display: none;" onchange="handleGlobalBackgroundUpload(this)">
+                            <button class="upload-btn" onclick="document.getElementById('globalBackgroundFile').click()">
+                                <i class="fas fa-upload"></i>
+                                Upload Global Background
+                            </button>
+                            <span class="file-info">JPG, PNG, GIF (Max 5MB)</span>
+                        </div>
+                        <div class="url-section">
+                            <input type="url" id="globalBackgroundUrl" placeholder="Or paste image URL here..." class="url-input">
+                            <button class="apply-btn" onclick="applyGlobalBackground()">
+                                <i class="fas fa-globe"></i>
+                                Apply to All Packages
+                            </button>
+                            <button class="save-btn" onclick="applyLogoToAllPackages()" style="margin-left: 10px;">
+                                <i class="fas fa-star"></i>
+                                Apply Logo to All
+                            </button>
+                        </div>
+                    </div>
+                    <div class="global-preview">
+                        <img id="globalBackgroundPreview" src="" alt="Global Background Preview" style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="background-management">
+                    <div class="background-info">
+                        <h3>
+                            <i class="fas fa-info-circle"></i>
+                            Package Background Management
+                        </h3>
+                        <p>Set custom background images for each game package. You can use URLs or upload images.</p>
+                        <p><strong>Note:</strong> Changes will apply to both main page and game details page.</p>
+                    </div>
+                    
+                    <div class="games-background-container">
+                        <div class="games-background-grid" id="gamesBackgroundGrid">
+                            <!-- Games background settings will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Old Customer Chat Section Removed -->
+                    <!-- Chat Users List -->
+                    <div class="chat-users-panel">
+                        <div class="chat-users-header">
+                            <h3>Active Conversations</h3>
+                            <div class="chat-stats">
+                                <span class="unread-count" id="unreadCount">0</span> unread
+                            </div>
+                        </div>
+                        <div class="chat-users-list" id="chatUsersList">
+                            <div class="no-chats">No active conversations</div>
+                        </div>
+                        
+                        <!-- User Info Panel -->
+                        <div class="user-info-panel" id="userInfoPanel" style="display: none;">
+                            <div class="user-info-header">
+                                <h4>User Information</h4>
+                                <button class="close-user-info" onclick="closeUserInfo()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="user-info-content" id="userInfoContent">
+                                <!-- User info will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Conversation -->
+                    <div class="chat-conversation-panel">
+                        <div class="chat-conversation-header" id="chatConversationHeader">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <h4>Select a conversation</h4>
+                                    <p>Choose a user from the left panel</p>
+                                </div>
+                            </div>
+                            <div class="chat-actions">
+                                <button class="action-btn priority-btn" onclick="setPriority()" id="priorityBtn" disabled>
+                                    <i class="fas fa-flag"></i>
+                                    Set Priority
+                                </button>
+                                <button class="action-btn warning-btn" onclick="warnUser()" id="warnBtn" disabled>
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Warn User
+                                </button>
+                                <button class="action-btn ban-btn" onclick="banUser()" id="banBtn" disabled>
+                                    <i class="fas fa-ban"></i>
+                                    Ban User
+                                </button>
+                                <button class="action-btn resolve-btn" onclick="markAsResolved()" id="resolveBtn" disabled>
+                                    <i class="fas fa-check"></i>
+                                    Resolve
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-conversation-messages" id="chatConversationMessages">
+                            <div class="no-conversation">
+                                <i class="fas fa-comments"></i>
+                                <p>Select a conversation to start chatting</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Response Templates -->
+                        <div class="quick-responses" id="quickResponses" style="display: none;">
+                            <div class="quick-responses-header">
+                                <h4>Quick Responses</h4>
+                                <button class="toggle-templates" onclick="toggleQuickResponses()">
+                                    <i class="fas fa-chevron-up"></i>
+                                </button>
+                            </div>
+                            <div class="quick-responses-grid">
+                                <button class="quick-response-btn" onclick="useQuickResponse('Hello! How can I help you today?')">
+                                    <i class="fas fa-smile"></i>
+                                    Greeting
+                                </button>
+                                <button class="quick-response-btn" onclick="useQuickResponse('Thank you for contacting us. I will help you resolve this issue.')">
+                                    <i class="fas fa-handshake"></i>
+                                    Acknowledgment
+                                </button>
+                                <button class="quick-response-btn" onclick="useQuickResponse('I understand your concern. Let me check that for you right away.')">
+                                    <i class="fas fa-search"></i>
+                                    Investigation
+                                </button>
+                                <button class="quick-response-btn" onclick="useQuickResponse('Your issue has been resolved. Is there anything else I can help you with?')">
+                                    <i class="fas fa-check-circle"></i>
+                                    Resolution
+                                </button>
+                                <button class="quick-response-btn" onclick="useQuickResponse('Please provide more details about your issue so I can assist you better.')">
+                                    <i class="fas fa-info-circle"></i>
+                                    More Info
+                                </button>
+                                <button class="quick-response-btn" onclick="useQuickResponse('Thank you for your patience. Have a great day!')">
+                                    <i class="fas fa-heart"></i>
+                                    Closing
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-conversation-input" id="chatConversationInput" style="display: none;">
+                            <div class="input-with-templates">
+                                <button class="templates-toggle" onclick="toggleQuickResponses()" title="Quick Responses">
+                                    <i class="fas fa-comment-dots"></i>
+                                </button>
+                                <input type="text" id="adminChatInput" placeholder="Type your response...">
+                                <button class="send-admin-message" onclick="sendAdminMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Settings Section -->
+
+            <section id="settings" class="admin-section">
+                <h1>Settings</h1>
+                
+                <div class="settings-grid">
+                    <div class="setting-card banner-management">
+                        <h3>
+                            <i class="fas fa-images"></i>
+                            3D Rotating Banner Management (Extended)
+                        </h3>
+                        <p class="feature-description">
+                            <i class="fas fa-star"></i>
+                            Now supports up to 15 banner slides with improved grid layout
+                        </p>
+                        
+                        <!-- Banner Settings -->
+                        <div class="banner-settings">
+                            <div class="settings-row">
+                                <div class="form-group">
+                                    <label for="transitionStyle">Transition Style</label>
+                                    <select id="transitionStyle" onchange="updateBannerSettings()">
+                                        <option value="fade">Fade</option>
+                                        <option value="slide">Slide</option>
+                                        <option value="zoom">Zoom In</option>
+                                        <option value="cube">3D Cube</option>
+                                        <option value="flip">3D Flip</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transitionSpeed">Speed (seconds)</label>
+                                    <input type="range" id="transitionSpeed" min="2" max="10" value="5" onchange="updateBannerSettings()">
+                                    <span id="speedValue">5s</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="autoPlay">Auto Play</label>
+                                    <input type="checkbox" id="autoPlay" checked onchange="updateBannerSettings()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banner Slides -->
+                        <div class="banner-slides-container">
+                            <div class="slides-header">
+                                <h4>Banner Slides (<span id="slideCount">0</span>/15)</h4>
+                                <button class="danger-btn clear-all-btn" onclick="clearAllSlides()" id="clearAllBtn" style="display: none;">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Clear All Slides
+                                </button>
+                                <button class="save-btn" onclick="saveBannerData()" style="margin-left: 10px;">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    Save to Server
+                                </button>
+                            </div>
+                            <div class="slides-grid" id="slidesGrid">
+                                <!-- Slides will be dynamically added here -->
+                            </div>
+                            
+                            <!-- Add New Slide -->
+                            <div class="add-slide-card" onclick="addNewSlide()">
+                                <div class="add-slide-content">
+                                    <i class="fas fa-plus"></i>
+                                    <p>Add New Slide</p>
+                                    <small>Max 15 slides</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide Editor Modal -->
+                        <div id="slideEditorModal" class="modal-overlay">
+                            <div class="modal-content slide-editor">
+                                <div class="modal-header">
+                                    <h3>Edit Slide</h3>
+                                    <button class="modal-close" onclick="closeSlideEditor()">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="editor-grid">
+                                        <div class="image-section">
+                                            <div class="image-preview" id="slideImagePreview">
+                                                <div class="image-placeholder">
+                                                    <i class="fas fa-image"></i>
+                                                    <p>Upload Image</p>
+                                                </div>
+                                            </div>
+                                            <input type="file" id="slideImageUpload" accept="image/*" onchange="handleSlideImageUpload(this)">
+                                            <small>Recommended: 1920x1080px (max 5MB)</small>
+                                        </div>
+                                        <div class="text-section">
+                                            <div class="form-group">
+                                                <label for="slideTitle">Title</label>
+                                                <input type="text" id="slideTitle" placeholder="Enter slide title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="slideSubtitle">Subtitle</label>
+                                                <textarea id="slideSubtitle" placeholder="Enter slide subtitle" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="slideButtonText">Button Text (Optional)</label>
+                                                <input type="text" id="slideButtonText" placeholder="e.g., Shop Now">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="slideButtonLink">Button Link (Optional)</label>
+                                                <input type="text" id="slideButtonLink" placeholder="e.g., #games">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn secondary" onclick="closeSlideEditor()">Cancel</button>
+                                    <button class="btn primary" onclick="saveSlide()">Save Slide</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <h3>Telegram Bot Settings</h3>
+                        <div class="form-group">
+                            <label for="botToken">Bot Token</label>
+                            <input type="text" id="botToken" value="7835330346:AAEAnJ2nNDQ3tUfiLfB8SgDFERzZ0fYA_Ac">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminChatId">Admin Chat ID</label>
+                            <input type="text" id="adminChatId" value="-1002756181009">
+                        </div>
+                        <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <h3>Website Settings</h3>
+                        <div class="form-group">
+                            <label for="discountPercent">Discount Percentage</label>
+                            <input type="number" id="discountPercent" value="65" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="siteName">Site Name</label>
+                            <input type="text" id="siteName" value="FockGaming">
+                        </div>
+                        <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <h3>Data Management</h3>
+                        <button class="danger-btn" onclick="clearAllData()">
+                            <i class="fas fa-trash"></i>
+                            Clear All Data
+                        </button>
+                        <button class="export-btn" onclick="exportAllData()">
+                            <i class="fas fa-download"></i>
+                            Export All Data
+                        </button>
+                        <div class="file-input-group">
+                            <label for="importData">Import Data</label>
+                            <input type="file" id="importData" accept=".json" onchange="importData(this)">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Game Modal -->
+    <div id="addGameModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Game</h3>
+                <button class="modal-close" onclick="closeAddGameModal()">&times;</button>
+            </div>
+            <form id="addGameForm">
+                <div class="form-group">
+                    <label for="gameName">Game Name</label>
+                    <input type="text" id="gameName" required>
+                </div>
+                <div class="form-group">
+                    <label for="gameIcon">Game Icon (Emoji)</label>
+                    <input type="text" id="gameIcon" placeholder="ğŸ®" required>
+                </div>
+                <div class="form-group">
+                    <label for="gameDescription">Description</label>
+                    <input type="text" id="gameDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="gameLogo">Game Logo (Optional)</label>
+                    <input type="file" id="gameLogo" accept="image/*">
+                    <small>Upload PNG, JPG, or GIF logo (max 2MB)</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeAddGameModal()">Cancel</button>
+                    <button type="submit">Add Game</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Logo Preview Modal -->
+    <div id="logoPreviewModal" class="logo-preview-modal">
+        <div class="logo-preview-content">
+            <button class="logo-preview-close" onclick="closeLogoPreviewModal()">&times;</button>
+            <img id="logoPreviewImg" src="" alt="" class="logo-preview-img">
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="games-data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
